@@ -1,5 +1,6 @@
 {
     "key": "assert",
+    "boost-version": "1.27.0",
     "name": "Assert",
     "authors": [
         "Peter Dimov"
