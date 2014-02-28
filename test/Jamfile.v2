@@ -19,4 +19,6 @@ test-suite "assert"
         [ run exp/assert_msg_exp_test.cpp ]
         [ run exp/verify_exp_test.cpp ]
         [ run exp/verify_msg_exp_test.cpp ]
+        [ run assert_test2.cpp ]
+        [ run assert_msg_test2.cpp ]
     ;
