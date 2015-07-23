@@ -17,7 +17,7 @@
 #include <boost/assert.hpp>
 
 #ifdef BOOST_ASSERT_IS_VOID
-#error "Error: BOOST_ASSERT should be void in NDEBUG"
+#error "BOOST_ASSERT should NOT be void if NDEBUG is not defined"
 #endif
 
 // default case, NDEBUG
@@ -27,7 +27,7 @@
 #include <boost/assert.hpp>
 
 #ifndef BOOST_ASSERT_IS_VOID
-#error "BOOST_ASSERT should NOT be void if NDEBUG is not defined"
+#error "Error: BOOST_ASSERT should be void in NDEBUG"
 #endif
 
 // BOOST_DISABLE_ASSERTS, !NDEBUG
