@@ -122,7 +122,7 @@
 void MyContainer::erase(iterator i)
 {
   //Some sanity checks, data must be ordered
-  #ifndef BOOST_ASSERT_IS_EMPTY
+  #ifndef BOOST_ASSERT_IS_VOID
      if(i != c.begin()){
         iterator prev = i;
         --prev;
