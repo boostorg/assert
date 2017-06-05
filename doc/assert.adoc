@@ -33,7 +33,7 @@ code.
 (BOOST_LIKELY(!!(expr))? ((void)0):
     ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
-That is, it evaluates `expr` and if it's false, calls `::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__)`.
+That is, it evaluates `expr` and if it's false, calls `::boost::assertion_failed(#expr, <<current_function.adoc#boost_current_function,BOOST_CURRENT_FUNCTION>>, \\__FILE__, \\__LINE__)`.
 This is true regardless of whether `NDEBUG` is defined.
 
 `boost::assertion_failed` is declared in `<boost/assert.hpp>` as
@@ -59,7 +59,7 @@ will be redefined each time as specified above.
 The macro `BOOST_ASSERT_MSG` is similar to `BOOST_ASSERT`, but it takes an additional argument,
 a character literal, supplying an error message.
 
-* By default, `BOOST_ASSERT_MSG(expr,msg)` expands to `assert((expr)&&(msg))`.
+* By default, `BOOST_ASSERT_MSG(expr,msg)` expands to `assert\((expr)&&(msg))`.
 
 * If the macro `BOOST_DISABLE_ASSERTS` is defined when `<boost/assert.hpp>`
 is included, `BOOST_ASSERT_MSG(expr,msg)` expands to `((void)0)`, regardless of whether
@@ -101,12 +101,12 @@ effects; it can also help suppress warnings about unused variables when the
 only use of the variable is inside an assertion.
 
 * If the macro `BOOST_DISABLE_ASSERTS` is defined when `<boost/assert.hpp>`
-  is included, `BOOST_VERIFY(expr)` expands to `((void)(expr))`.
+  is included, `BOOST_VERIFY(expr)` expands to `\((void)(expr))`.
 
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
   is included, `BOOST_VERIFY(expr)` expands to `BOOST_ASSERT(expr)`.
 
-* Otherwise, `BOOST_VERIFY(expr)` expands to `((void)(expr))` when `NDEBUG` is
+* Otherwise, `BOOST_VERIFY(expr)` expands to `\((void)(expr))` when `NDEBUG` is
   defined, to `BOOST_ASSERT(expr)` when it's not.
 
 ## BOOST_VERIFY_MSG
@@ -114,12 +114,12 @@ only use of the variable is inside an assertion.
 The macro `BOOST_VERIFY_MSG` is similar to `BOOST_VERIFY`, with an additional parameter, an error message.
 
 * If the macro `BOOST_DISABLE_ASSERTS` is defined when `<boost/assert.hpp>`
-  is included, `BOOST_VERIFY_MSG(expr,msg)` expands to `((void)(expr))`.
+  is included, `BOOST_VERIFY_MSG(expr,msg)` expands to `\((void)(expr))`.
 
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
   is included, `BOOST_VERIFY_MSG(expr,msg)` expands to `BOOST_ASSERT_MSG(expr,msg)`.
 
-* Otherwise, `BOOST_VERIFY_MSG(expr,msg)` expands to `((void)(expr))` when `NDEBUG` is
+* Otherwise, `BOOST_VERIFY_MSG(expr,msg)` expands to `\((void)(expr))` when `NDEBUG` is
   defined, to `BOOST_ASSERT_MSG(expr,msg)` when it's not.
 
 ## BOOST_ASSERT_IS_VOID
