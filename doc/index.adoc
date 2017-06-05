@@ -8,8 +8,10 @@ http://www.boost.org/LICENSE_1_0.txt
 ////
 
 # Boost.Assert
+:toc:
 
-The Boost.Assert library...
+The Boost.Assert library provides several configurable diagnostic macros
+similar in behavior and purpose to the standard macro `assert` from `<cassert>`.
 
 include::assert.adoc[]
 
