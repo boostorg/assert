@@ -1,0 +1,24 @@
+# Copyright 2017 Peter Dimov
+# 
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at
+# http://www.boost.org/LICENSE_1_0.txt)
+
+import generators ;
+import type ;
+import boostbook ;
+
+type.register ASCIIDOC : asciidoc adoc ;
+
+# generators.register-standard asciidoctor.asciidoc2html : ASCIIDOC : HTML ;
+generators.register-standard asciidoctor.asciidoc2docbook : ASCIIDOC : DOCBOOK ;
+
+actions asciidoc2html
+{
+    asciidoctor -b html -o $(1) $(2)
+}
+
+actions asciidoc2docbook
+{
+    asciidoctor -b docbook -o $(1) $(2)
+}

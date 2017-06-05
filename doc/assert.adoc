@@ -12,6 +12,7 @@ http://www.boost.org/LICENSE_1_0.txt
 # boost/assert.hpp
 :toc:
 :toc-title:
+:idprefix:
 
 ## BOOST_ASSERT
 
@@ -28,23 +29,27 @@ code.
   affecting the definition of the standard `assert`.
 
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
-  is included, `BOOST_ASSERT(expr)` expands to
+is included, `BOOST_ASSERT(expr)` expands to
++
 ```
 (BOOST_LIKELY(!!(expr))? ((void)0):
     ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
-That is, it evaluates `expr` and if it's false, calls `::boost::assertion_failed(#expr, <<current_function.adoc#boost_current_function,BOOST_CURRENT_FUNCTION>>, \\__FILE__, \\__LINE__)`.
++
+That is, it evaluates `expr` and if it's false, calls
+`::boost::assertion_failed(#expr, <<current_function.adoc#boost_current_function,BOOST_CURRENT_FUNCTION>>, \\__FILE__, \\__LINE__)`.
 This is true regardless of whether `NDEBUG` is defined.
-
++
 `boost::assertion_failed` is declared in `<boost/assert.hpp>` as
++
 ```
 namespace boost
 {
     void assertion_failed(char const * expr, char const * function, char const * file, long line);
 }
 ```
-but it is never defined. The user is expected to supply an appropriate
-definition.
++
+but it is never defined. The user is expected to supply an appropriate definition.
 
 * If the macro `BOOST_ENABLE_ASSERT_DEBUG_HANDLER` is defined when `<boost/assert.hpp>`
 is included, `BOOST_ASSERT(expr)` expands to `((void)0)` when `NDEBUG` is
@@ -67,13 +72,16 @@ the macro `NDEBUG` is defined.
 
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
 is included, `BOOST_ASSERT_MSG(expr,msg)` expands to
++
 ```
 (BOOST_LIKELY(!!(expr))? ((void)0):
     ::boost::assertion_failed_msg(#expr, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
++
 This is true regardless of whether `NDEBUG` is defined.
-
++
 `boost::assertion_failed_msg` is declared in `<boost/assert.hpp>` as
++
 ```
 namespace boost
 {
@@ -81,8 +89,8 @@ namespace boost
         char const * file, long line);
 }
 ```
-but it is never defined. The user is expected to supply an appropriate 
-definition.
++
+but it is never defined. The user is expected to supply an appropriate definition.
 
 * If the macro `BOOST_ENABLE_ASSERT_DEBUG_HANDLER` is defined when `<boost/assert.hpp>`
 is included, `BOOST_ASSERT_MSG(expr)` expands to `((void)0)` when `NDEBUG` is
