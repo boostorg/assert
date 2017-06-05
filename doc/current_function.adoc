@@ -9,8 +9,8 @@ http://www.boost.org/LICENSE_1_0.txt
 
 ## BOOST_CURRENT_FUNCTION
 
-The header `boost/current_function.hpp` defines a single macro, `BOOST_CURRENT_FUNCTION`,
-similar to the C99 predefined identifier `__func__`.
+The header `<boost/current_function.hpp>` defines a single macro, `BOOST_CURRENT_FUNCTION`,
+similar to the C99 predefined identifier `\\__func__`.
 
 `BOOST_CURRENT_FUNCTION` expands to a string literal containing 
 the (fully qualified, if possible) name of the enclosing function. If there is
