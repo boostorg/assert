@@ -9,7 +9,7 @@ See accompanying file LICENSE_1_0.txt or copy at
 http://www.boost.org/LICENSE_1_0.txt
 ////
 
-#
+# assert.hpp
 :toc:
 
 ## BOOST_ASSERT
@@ -29,15 +29,17 @@ code.
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
   is included, `BOOST_ASSERT(expr)` expands to
 ```
-(BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
+(BOOST_LIKELY(!!(expr))? ((void)0):
+    ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
-  That is, it evaluates `expr` and if it's false, calls `::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__)`.
-  This is true regardless of whether `NDEBUG` is defined.
-  `boost::assertion_failed` is declared in `<boost/assert.hpp>` as
+That is, it evaluates `expr` and if it's false, calls `::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__)`.
+This is true regardless of whether `NDEBUG` is defined.
+
+`boost::assertion_failed` is declared in `<boost/assert.hpp>` as
 ```
 namespace boost
 {
-  void assertion_failed(char const * expr, char const * function, char const * file, long line);
+    void assertion_failed(char const * expr, char const * function, char const * file, long line);
 }
 ```
 but it is never defined. The user is expected to supply an appropriate
@@ -65,7 +67,8 @@ the macro `NDEBUG` is defined.
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
 is included, `BOOST_ASSERT_MSG(expr,msg)` expands to
 ```
-(BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed_msg(#expr, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
+(BOOST_LIKELY(!!(expr))? ((void)0):
+    ::boost::assertion_failed_msg(#expr, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
 This is true regardless of whether `NDEBUG` is defined.
 
@@ -73,7 +76,8 @@ This is true regardless of whether `NDEBUG` is defined.
 ```
 namespace boost
 {
-  void assertion_failed_msg(char const * expr, char const * msg, char const * function, char const * file, long line);
+    void assertion_failed_msg(char const * expr, char const * msg, char const * function,
+        char const * file, long line);
 }
 ```
 but it is never defined. The user is expected to supply an appropriate 
@@ -125,20 +129,23 @@ Its purpose is to avoid compiling and potentially running code that is only inte
 ```
 void MyContainer::erase(iterator i)
 {
-  //Some sanity checks, data must be ordered
-  #ifndef BOOST_ASSERT_IS_VOID
-     if(i != c.begin()){
+// Some sanity checks, data must be ordered
+#ifndef BOOST_ASSERT_IS_VOID
+
+    if(i != c.begin()) {
         iterator prev = i;
         --prev;
         BOOST_ASSERT(*prev < *i);
-     }
-     else if(i != c.end()){
+    }
+    else if(i != c.end()) {
         iterator next = i;
         ++next;
         BOOST_ASSERT(*i < *next);
-     }
-  #endif
-  this->erase_impl(i);
+    }
+
+#endif
+
+    this->erase_impl(i);
 }
 ```      
 
