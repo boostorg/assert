@@ -482,8 +482,8 @@ affecting the definition of the standard <code>assert</code>.</p>
 is included, <code>BOOST_ASSERT(expr)</code> expands to</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>(BOOST_LIKELY(!!(expr))? ((void)0):
-    ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))</code></pre>
+<pre class="highlight"><code>(BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed(#expr,
+    BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -498,7 +498,8 @@ This is true regardless of whether <code>NDEBUG</code> is defined.</p>
 <div class="content">
 <pre class="highlight"><code>namespace boost
 {
-    void assertion_failed(char const * expr, char const * function, char const * file, long line);
+    void assertion_failed(char const * expr, char const * function,
+        char const * file, long line);
 }</code></pre>
 </div>
 </div>
@@ -540,8 +541,8 @@ the macro <code>NDEBUG</code> is defined.</p>
 is included, <code>BOOST_ASSERT_MSG(expr,msg)</code> expands to</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>(BOOST_LIKELY(!!(expr))? ((void)0):
-    ::boost::assertion_failed_msg(#expr, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))</code></pre>
+<pre class="highlight"><code>(BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed_msg(#expr,
+    msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -554,8 +555,8 @@ is included, <code>BOOST_ASSERT_MSG(expr,msg)</code> expands to</p>
 <div class="content">
 <pre class="highlight"><code>namespace boost
 {
-    void assertion_failed_msg(char const * expr, char const * msg, char const * function,
-        char const * file, long line);
+    void assertion_failed_msg(char const * expr, char const * msg,
+        char const * function, char const * file, long line);
 }</code></pre>
 </div>
 </div>

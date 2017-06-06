@@ -32,8 +32,8 @@ code.
 is included, `BOOST_ASSERT(expr)` expands to
 +
 ```
-(BOOST_LIKELY(!!(expr))? ((void)0):
-    ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
+(BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed(#expr,
+    BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
 +
 That is, it evaluates `expr` and if it's false, calls
@@ -45,7 +45,8 @@ This is true regardless of whether `NDEBUG` is defined.
 ```
 namespace boost
 {
-    void assertion_failed(char const * expr, char const * function, char const * file, long line);
+    void assertion_failed(char const * expr, char const * function,
+        char const * file, long line);
 }
 ```
 +
@@ -74,8 +75,8 @@ the macro `NDEBUG` is defined.
 is included, `BOOST_ASSERT_MSG(expr,msg)` expands to
 +
 ```
-(BOOST_LIKELY(!!(expr))? ((void)0):
-    ::boost::assertion_failed_msg(#expr, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
+(BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed_msg(#expr,
+    msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
 +
 This is true regardless of whether `NDEBUG` is defined.
@@ -85,8 +86,8 @@ This is true regardless of whether `NDEBUG` is defined.
 ```
 namespace boost
 {
-    void assertion_failed_msg(char const * expr, char const * msg, char const * function,
-        char const * file, long line);
+    void assertion_failed_msg(char const * expr, char const * msg,
+        char const * function, char const * file, long line);
 }
 ```
 +
