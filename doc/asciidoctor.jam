@@ -10,6 +10,7 @@ import generators ;
 import boostbook ;
 
 # File type
+
 type.register ASCIIDOC : asciidoc adoc ;
 
 # Define dependency scanner
@@ -27,17 +28,23 @@ type.set-scanner ASCIIDOC : asciidoc-scanner ;
 
 # Define generators
 
-generators.register-standard asciidoctor.asciidoc2html : ASCIIDOC : HTML ;
-# generators.register-standard asciidoctor.asciidoc2docbook : ASCIIDOC : DOCBOOK ;
+generators.register-standard asciidoctor.asciidoc-to-html : ASCIIDOC : HTML ;
+generators.register-standard asciidoctor.asciidoc-to-pdf : ASCIIDOC : PDF ;
+# generators.register-standard asciidoctor.asciidoc-to-docbook : ASCIIDOC : DOCBOOK ;
 
 # Define actions
 
-actions asciidoc2html
+actions asciidoc-to-html
 {
     asciidoctor -b html -o $(1) $(2)
 }
 
-actions asciidoc2docbook
+actions asciidoc-to-pdf
+{
+    asciidoctor -r asciidoctor-pdf -b pdf -o $(1) $(2)
+}
+
+actions asciidoc-to-docbook
 {
     asciidoctor -b docbook -o $(1) $(2)
 }

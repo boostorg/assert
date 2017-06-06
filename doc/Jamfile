@@ -14,10 +14,16 @@ html assert.html : index.adoc ;
 # docbook assert.docbook : index.adoc ;
 # boostbook assert.html : assert.docbook : <format>onehtml ;
 
-install assert_html : assert.html : <location>html ;
+install html_ : assert.html : <location>html ;
+
+pdf assert.pdf : index.adoc ;
+explicit assert.pdf ;
+
+install pdf_ : assert.pdf : <location>pdf ;
+explicit pdf_ ;
 
 ###############################################################################
 alias boostdoc ;
 explicit boostdoc ;
-alias boostrelease : assert_html ;
+alias boostrelease : html_ ;
 explicit boostrelease ;
