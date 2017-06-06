@@ -9,7 +9,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 # Boost.Assert
 Peter Dimov
-:toc:
+:toc: left
 :idprefix:
 
 The Boost.Assert library provides several configurable diagnostic macros
