@@ -4,14 +4,33 @@
 # (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
 
-import generators ;
 import type ;
+import scanner ;
+import generators ;
 import boostbook ;
 
+# File type
 type.register ASCIIDOC : asciidoc adoc ;
 
-# generators.register-standard asciidoctor.asciidoc2html : ASCIIDOC : HTML ;
-generators.register-standard asciidoctor.asciidoc2docbook : ASCIIDOC : DOCBOOK ;
+# Define dependency scanner
+
+class asciidoc-scanner : common-scanner
+{
+    rule pattern ( )
+    {
+        return "include::([^[]+)\\[" ;
+    }
+}
+
+scanner.register asciidoc-scanner : include ;
+type.set-scanner ASCIIDOC : asciidoc-scanner ;
+
+# Define generators
+
+generators.register-standard asciidoctor.asciidoc2html : ASCIIDOC : HTML ;
+# generators.register-standard asciidoctor.asciidoc2docbook : ASCIIDOC : DOCBOOK ;
+
+# Define actions
 
 actions asciidoc2html
 {
