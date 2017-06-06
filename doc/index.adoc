@@ -26,8 +26,9 @@ include::current_function.adoc[]
 [appendix]
 ## Copyright and License
 
+This documentation is
+
 * Copyright 2002, 2007, 2014, 2017 Peter Dimov
 * Copyright 2011 Beman Dawes
 * Copyright 2015 Ion Gaztanaga
-
-Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
+* Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
