@@ -1,6 +1,6 @@
 # Boost.Assert
 
-The Boost.Assert library, part of collection of the [Boost C++ Libraries](http://github.com/boostorg),
+The Boost.Assert library, part of the collection of [Boost C++ Libraries](http://github.com/boostorg),
 provides several configurable diagnostic macros similar in behavior and purpose to the standard macro
 `assert` from `<cassert>`.
 
