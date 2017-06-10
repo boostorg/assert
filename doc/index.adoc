@@ -11,6 +11,7 @@ http://www.boost.org/LICENSE_1_0.txt
 Peter Dimov
 :toc: left
 :idprefix:
+:docinfo: private-footer
 
 The Boost.Assert library provides several configurable diagnostic macros
 similar in behavior and purpose to the standard macro `assert` from `<cassert>`.
@@ -32,38 +33,3 @@ This documentation is
 * Copyright 2011 Beman Dawes
 * Copyright 2015 Ion Gaztañaga
 * Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
-
-++++
-<style>
-
-*:not(pre)>code { background: none; color: #600000; }
-
-</style>
-
-<script>
-
-var header = document.getElementById( 'boost-common-heading-doc' );
-
-if( header )
-{
-    header.style.position = 'fixed';
-    header.style.zIndex = '100';
-
-    var notice = document.getElementsByClassName( 'boost-common-header-notice' )[ 0 ];
-
-    if( notice )
-    {
-        notice.style.position = 'fixed';
-        notice.style.zIndex = '101';
-    }
-
-    var toc = document.getElementById( 'toc' );
-
-    if( toc )
-    {
-        toc.style.top = '101px';
-    }
-}
-
-</script>
-++++
