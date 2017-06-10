@@ -34,6 +34,12 @@ This documentation is
 * Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
 
 ++++
+<style>
+
+*:not(pre)>code { background: none; color: #600000; }
+
+</style>
+
 <script>
 
 var header = document.getElementById( 'boost-common-heading-doc' );
