@@ -43,7 +43,7 @@ if( header )
     header.style.position = 'fixed';
     header.style.zIndex = '100';
 
-    var notice = document.getElementById( 'boost-common-heading-notice' );
+    var notice = document.getElementsByClassName( 'boost-common-header-notice' )[ 0 ];
 
     if( notice )
     {
