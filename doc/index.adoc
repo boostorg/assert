@@ -32,3 +32,32 @@ This documentation is
 * Copyright 2011 Beman Dawes
 * Copyright 2015 Ion Gaztañaga
 * Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
+
+++++
+<script>
+
+var header = document.getElementById( 'boost-common-heading-doc' );
+
+if( header )
+{
+    header.style.position = 'fixed';
+    header.style.zIndex = '100';
+
+    var notice = document.getElementById( 'boost-common-heading-notice' );
+
+    if( notice )
+    {
+        notice.style.position = 'fixed';
+        notice.style.zIndex = '101';
+    }
+
+    var toc = document.getElementById( 'toc' );
+
+    if( toc )
+    {
+        toc.style.top = '101px';
+    }
+}
+
+</script>
+++++

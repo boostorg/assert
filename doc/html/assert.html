@@ -723,12 +723,38 @@ the final executable for security reasons.</p>
 </li>
 </ul>
 </div>
+<script>
+
+var header = document.getElementById( 'boost-common-heading-doc' );
+
+if( header )
+{
+    header.style.position = 'fixed';
+    header.style.zIndex = '100';
+
+    var notice = document.getElementById( 'boost-common-heading-notice' );
+
+    if( notice )
+    {
+        notice.style.position = 'fixed';
+        notice.style.zIndex = '101';
+    }
+
+    var toc = document.getElementById( 'toc' );
+
+    if( toc )
+    {
+        toc.style.top = '101px';
+    }
+}
+
+</script>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-06 18:21:15 GTBDT
+Last updated 2017-06-10 18:24:56 GTBDT
 </div>
 </div>
 </body>
