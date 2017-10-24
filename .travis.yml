@@ -1,4 +1,4 @@
-# Copyright 2016 Peter Dimov
+# Copyright 2016, 2017 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -6,31 +6,48 @@ language: cpp
 
 sudo: false
 
-os:
-  - linux
-  - osx
-
 branches:
   only:
     - master
     - develop
+    - /feature\/.*/
+
+env:
+  matrix:
+    - BOGUS_JOB=true
+
+matrix:
+
+  exclude:
+    - env: BOGUS_JOB=true
+
+  include:
+    - os: linux
+      compiler: g++
+      env: TOOLSET=gcc CXXSTD=03,11
+
+    - os: linux
+      compiler: clang++
+      env: TOOLSET=clang CXXSTD=03,11,14,1z
+
+    - os: osx
+      compiler: clang++
+      env: TOOLSET=clang CXXSTD=03,11,14,1z
 
 install:
+  - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
   - cd ..
-  - git clone -b $TRAVIS_BRANCH https://github.com/boostorg/boost.git boost-root
+  - git clone -b $BOOST_BRANCH https://github.com/boostorg/boost.git boost-root
   - cd boost-root
-  - git submodule init libs/config
-  - git submodule init libs/core
-  - git submodule init tools/build
-  - git submodule update
+  - git submodule update --init tools/build
+  - git submodule update --init libs/config
+  - git submodule update --init libs/core
   - cp -r $TRAVIS_BUILD_DIR/* libs/assert
   - ./bootstrap.sh
   - ./b2 headers
 
 script:
-  - TOOLSET=gcc,clang
-  - if [ $TRAVIS_OS_NAME == osx ]; then TOOLSET=clang; fi
-  - ./b2 libs/assert/test toolset=$TOOLSET
+  - ./b2 libs/assert/test toolset=$TOOLSET cxxstd=$CXXSTD
 
 notifications:
   email:
