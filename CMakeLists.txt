@@ -30,17 +30,32 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
     function(boost_test)
 
-        cmake_parse_arguments(PARSE "" "NAME" "SOURCES;LIBRARIES" ${ARGN})
+        cmake_parse_arguments(_ "" "PREFIX;NAME" "SOURCES;LIBRARIES" ${ARGN})
 
-        add_executable(${PARSE_NAME} EXCLUDE_FROM_ALL ${PARSE_SOURCES})
-        target_link_libraries(${PARSE_NAME} ${PARSE_LIBRARIES})
+        if(NOT __PREFIX)
+            set(__PREFIX ${PROJECT_NAME})
+        endif()
 
-        add_test(NAME compile-${PARSE_NAME} COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target ${PARSE_NAME})
+        if(NOT __NAME)
+            list(GET __SOURCES 0 __NAME)
+            string(MAKE_C_IDENTIFIER ${__NAME} __NAME)
+        endif()
 
-        add_test(NAME run-${PARSE_NAME} COMMAND ${PARSE_NAME})
-        set_tests_properties(run-${PARSE_NAME} PROPERTIES DEPENDS compile-${PARSE_NAME})
+        set(__NAME ${__PREFIX}-${__NAME})
+
+        add_executable(${__NAME} EXCLUDE_FROM_ALL ${__SOURCES})
+        target_link_libraries(${__NAME} ${__LIBRARIES})
+
+        add_test(NAME compile-${__NAME} COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target ${__NAME})
+
+        add_test(NAME run-${__NAME} COMMAND ${__NAME})
+        set_tests_properties(run-${__NAME} PROPERTIES DEPENDS compile-${__NAME})
 
     endfunction(boost_test)
+
+endif()
+
+if(COMMAND boost_test)
 
     add_subdirectory(test)
 
