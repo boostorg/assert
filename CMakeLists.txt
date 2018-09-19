@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.8)
-project(boost-assert LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.5)
+project(BoostAssert LANGUAGES CXX)
 
 add_library(boost_assert INTERFACE)
 add_library(Boost::assert ALIAS boost_assert)
