@@ -1,4 +1,4 @@
-# Copyright 2016, 2017 Peter Dimov
+# Copyright 2016-2018 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
@@ -33,6 +33,13 @@ matrix:
     - os: osx
       compiler: clang++
       env: TOOLSET=clang CXXSTD=03,11,14,1z
+
+    - os: linux
+      script:
+        - mkdir __build__
+        - cd __build__
+        - cmake ../libs/assert
+        - cmake --build . --target check
 
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
