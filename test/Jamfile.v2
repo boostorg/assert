@@ -10,7 +10,8 @@
 import testing ;
 
 run assert_test.cpp ;
-run current_function_test.cpp : : : <test-info>always_show_run_output ;
+run current_function_test.cpp
+  : : : <test-info>always_show_run_output ;
 run verify_test.cpp ;
 run assert_is_void_test.cpp ;
 
