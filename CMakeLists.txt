@@ -19,10 +19,17 @@ target_link_libraries(boost_assert
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
-    add_subdirectory(../config bin/config)
-    add_subdirectory(../core bin/core)
+    # requires CMake 3.11 so we just carry it around
+    include(cmake/FetchContent.cmake)
 
-    include(../mincmake/cmake/boost_test.cmake)
+    FetchContent_Populate(boost_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop)
+    add_subdirectory(${boost_config_SOURCE_DIR} ${boost_config_BINARY_DIR})
+
+    FetchContent_Populate(boost_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop)
+    add_subdirectory(${boost_core_SOURCE_DIR} ${boost_core_BINARY_DIR})
+
+    FetchContent_Populate(mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master)
+    include(${mincmake_SOURCE_DIR}/cmake/boost_test.cmake)
 
     enable_testing()
 

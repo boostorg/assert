@@ -35,9 +35,10 @@ matrix:
       env: TOOLSET=clang CXXSTD=03,11,14,1z
 
     - os: linux
+      env: CMAKE=1
+      install: true
       script:
-        - mkdir __build__
-        - cd __build__
+        - mkdir __build__ && cd __build__
         - cmake ../libs/assert
         - cmake --build . --target check
 
