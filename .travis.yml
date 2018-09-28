@@ -39,7 +39,7 @@ matrix:
       install: true
       script:
         - mkdir __build__ && cd __build__
-        - cmake ../libs/assert
+        - cmake ..
         - cmake --build . --target check
 
 install:
