@@ -25,17 +25,17 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     # requires CMake 3.11 so we just carry it around
     include(cmake/FetchContent.cmake)
 
-    message("-- Populating boost_config")
-    FetchContent_Populate(boost_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop)
+    message("-- Fetching pdimov/mincmake")
+    FetchContent_Populate(mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master GIT_SHALLOW 1)
+    include(${mincmake_SOURCE_DIR}/cmake/boost_test.cmake)
+
+    message("-- Fetching boostorg/config")
+    FetchContent_Populate(boost_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop GIT_SHALLOW 1)
     add_subdirectory(${boost_config_SOURCE_DIR} ${boost_config_BINARY_DIR})
 
-    message("-- Populating boost_core")
-    FetchContent_Populate(boost_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop)
+    message("-- Fetching boostorg/core")
+    FetchContent_Populate(boost_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop GIT_SHALLOW 1)
     add_subdirectory(${boost_core_SOURCE_DIR} ${boost_core_BINARY_DIR})
-
-    message("-- Populating mincmake")
-    FetchContent_Populate(mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master)
-    include(${mincmake_SOURCE_DIR}/cmake/boost_test.cmake)
 
     enable_testing()
 
