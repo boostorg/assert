@@ -26,15 +26,15 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     include(cmake/FetchContent.cmake)
 
     message(STATUS "Fetching pdimov/mincmake")
-    FetchContent_Populate(mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master GIT_SHALLOW 1)
-    include(${mincmake_SOURCE_DIR}/cmake/boost_test.cmake)
+    FetchContent_Populate(pdimov_mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master)
+    include(${pdimov_mincmake_SOURCE_DIR}/cmake/boost_test.cmake)
 
     message(STATUS "Fetching boostorg/config")
-    FetchContent_Populate(boost_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop GIT_SHALLOW 1)
+    FetchContent_Populate(boost_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop)
     add_subdirectory(${boost_config_SOURCE_DIR} ${boost_config_BINARY_DIR})
 
     message(STATUS "Fetching boostorg/core")
-    FetchContent_Populate(boost_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop GIT_SHALLOW 1)
+    FetchContent_Populate(boost_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop)
     add_subdirectory(${boost_core_SOURCE_DIR} ${boost_core_BINARY_DIR})
 
     enable_testing()
