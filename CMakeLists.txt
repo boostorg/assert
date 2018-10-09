@@ -22,23 +22,27 @@ target_link_libraries(boost_assert
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
-    # requires CMake 3.11 so we just carry it around
-    include(cmake/FetchContent.cmake)
+    # `function` confuses FetchContent, sees empty CMAKE_CURRENT_LIST_DIR
+    macro(fetch_and_include name)
 
-    message(STATUS "Fetching pdimov/mincmake")
-    FetchContent_Populate(pdimov_mincmake QUIET GIT_REPOSITORY https://github.com/pdimov/mincmake GIT_TAG master)
-    include(${pdimov_mincmake_SOURCE_DIR}/cmake/boost_test.cmake)
+        message(STATUS "Fetching ${name}")
 
-    message(STATUS "Fetching boostorg/config")
-    FetchContent_Populate(boost_config QUIET GIT_REPOSITORY https://github.com/boostorg/config GIT_TAG develop)
-    add_subdirectory(${boost_config_SOURCE_DIR} ${boost_config_BINARY_DIR})
+        file(DOWNLOAD
+            "https://raw.githubusercontent.com/pdimov/mincmake/master/${name}"
+            "${CMAKE_BINARY_DIR}/fetch_and_include/${name}"
+        )
 
-    message(STATUS "Fetching boostorg/core")
-    FetchContent_Populate(boost_core QUIET GIT_REPOSITORY https://github.com/boostorg/core GIT_TAG develop)
-    add_subdirectory(${boost_core_SOURCE_DIR} ${boost_core_BINARY_DIR})
+        include("${CMAKE_BINARY_DIR}/fetch_and_include/${name}")
+
+    endmacro()
+
+    fetch_and_include(cmake/boost_fetch.cmake)
+    fetch_and_include(cmake/boost_test.cmake)
+
+    boost_fetch(boostorg/config TAG develop)
+    boost_fetch(boostorg/core TAG develop)
 
     enable_testing()
-
     add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C $<CONFIG>)
 
 endif()
