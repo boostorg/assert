@@ -25,3 +25,5 @@ run assert_msg_test2.cpp ;
 
 # quick test (for CI)
 run quick.cpp ;
+
+run current_function_test2.cpp ;
