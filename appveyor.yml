@@ -31,10 +31,11 @@ install:
   - cd ..
   - git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
   - cd boost-root
-  - git submodule init libs/config
-  - git submodule init libs/core
-  - git submodule init tools/build
-  - git submodule update
+  - git submodule update --init tools/build
+  - git submodule update --init tools/boost_install
+  - git submodule update --init libs/config
+  - git submodule update --init libs/core
+  - git submodule update --init libs/headers
   - xcopy /s /e /q %APPVEYOR_BUILD_FOLDER% libs\assert\
   - cmd /c bootstrap
   - b2 -d0 headers
