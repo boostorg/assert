@@ -24,6 +24,9 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: clang-win
       CXXSTD: 14,17
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019 Preview
+      TOOLSET: msvc-14.2
+      CXXSTD: 14,17
 
 install:
   - set BOOST_BRANCH=develop
@@ -44,4 +47,4 @@ build: off
 
 test_script:
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
-  - b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD%
+  - b2 -j3 --debug-configuration libs/assert/test toolset=%TOOLSET% %CXXSTD%
