@@ -25,7 +25,7 @@ private:
 
 public:
 
-    BOOST_CONSTEXPR source_location() BOOST_NOEXCEPT: file_( "(unknown)" ), function_( file_ ), line_( 0 ), column_( 0 )
+    BOOST_CONSTEXPR source_location() BOOST_NOEXCEPT: file_( "(unknown)" ), function_( "(unknown)" ), line_( 0 ), column_( 0 )
     {
     }
 
