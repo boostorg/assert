@@ -28,5 +28,7 @@ run quick.cpp ;
 
 run current_function_test2.cpp ;
 
-run source_location_test.cpp ;
-run source_location_test2.cpp ;
+run source_location_test.cpp
+  : : : <warnings>extra <warnings-as-errors>on ;
+run source_location_test2.cpp
+  : : : <warnings>extra <warnings-as-errors>on ;
