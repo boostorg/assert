@@ -29,7 +29,7 @@ public:
     {
     }
 
-    BOOST_CONSTEXPR source_location( char const * file, boost::uint_least32_t line, char const * function, boost::uint_least32_t column = 0 ) BOOST_NOEXCEPT: file_( file ), function_( function ), line_( line ), column_( column )
+    BOOST_CONSTEXPR source_location( char const * file, boost::uint_least32_t ln, char const * function, boost::uint_least32_t col = 0 ) BOOST_NOEXCEPT: file_( file ), function_( function ), line_( ln ), column_( col )
     {
     }
 
