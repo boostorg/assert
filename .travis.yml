@@ -302,6 +302,7 @@ install:
   - git submodule update --init libs/config
   - git submodule update --init libs/core
   - git submodule update --init libs/headers
+  - git submodule update --init tools/cmake
   - cp -r $TRAVIS_BUILD_DIR/* libs/assert
   - ./bootstrap.sh
   - ./b2 headers
