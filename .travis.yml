@@ -287,11 +287,10 @@ matrix:
 
     - os: linux
       env: CMAKE=1
-      install: true
       script:
         - mkdir __build__ && cd __build__
-        - cmake ..
-        - cmake --build . --target check
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
+        - ctest --output-on-failure -R boost_assert
 
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
