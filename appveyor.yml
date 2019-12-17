@@ -48,14 +48,13 @@ install:
 build: off
 
 test_script:
+
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
-  - if "%CMAKE%" == "" (
-  -   b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD%
-  - ) ELSE (
-  -   mkdir __build__ && cd __build__
-  -   cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
-  -   ctest --output-on-failure -R boost_assert -C Debug
-  -   ctest --output-on-failure -R boost_assert -C Release
-  -   ctest --output-on-failure -R boost_assert -C MinSizeRel
-  -   ctest --output-on-failure -R boost_assert -C RelWithDebInfo
-  - )
+  - if "%CMAKE%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD%
+
+  - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
+  - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
+  - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C Debug
+  - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C Release
+  - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C MinSizeRel
+  - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C RelWithDebInfo
