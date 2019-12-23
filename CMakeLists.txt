@@ -31,7 +31,7 @@ if(HAVE_BOOST_INSTALL)
 
     install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
-    #boost_install(boost_assert) # requires install support in boost_config
+    boost_install(boost_assert)
 
 endif()
 
