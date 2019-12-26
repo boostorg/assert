@@ -28,6 +28,10 @@ environment:
       CMAKE: 1
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CMAKE: 1
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      CMAKE_SUBDIR: 1
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      CMAKE_INSTALL: 1
 
 install:
   - set BOOST_BRANCH=develop
@@ -50,11 +54,27 @@ build: off
 test_script:
 
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
-  - if "%CMAKE%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD%
+  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD%
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
-  - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
+  - if not "%CMAKE%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_DEBUG=1 ..
   - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C Debug
   - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C Release
   - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C MinSizeRel
   - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C RelWithDebInfo
+
+  - if not "%CMAKE_SUBDIR%" == ""  cd test/cmake_subdir_test && mkdir __build__ && cd __build__
+  - if not "%CMAKE_SUBDIR%" == ""  cmake ..
+  - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config Debug && cmake --build . --target check --config Debug
+  - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config Release && cmake --build . --target check --config Release
+  - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config MinSizeRel && cmake --build . --target check --config MinSizeRel
+  - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config RelWithDebInfo && cmake --build . --target check --config RelWithDebInfo
+
+  - if not "%CMAKE_INSTALL%" == ""  mkdir __build__ && cd __build__
+  - if not "%CMAKE_INSTALL%" == ""  cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_DEBUG=1 -DBOOST_INCLUDE_LIBRARIES="assert;config" -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix ..
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --target install --config Debug
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --target install --config Release
+  - if not "%CMAKE_INSTALL%" == ""  cd ../libs/assert/test/cmake_install_test && mkdir __build__ && cd __build__
+  - if not "%CMAKE_INSTALL%" == ""  cmake -DCMAKE_INSTALL_PREFIX=C:/cmake-prefix ..
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --config Debug && cmake --build . --target check --config Debug
+  - if not "%CMAKE_INSTALL%" == ""  cmake --build . --config Release && cmake --build . --target check --config Release
