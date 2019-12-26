@@ -289,8 +289,31 @@ matrix:
       env: CMAKE=1
       script:
         - mkdir __build__ && cd __build__
-        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 ..
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_DEBUG=1 ..
         - ctest --output-on-failure -R boost_assert
+
+    - os: linux
+      env: CMAKE_SUBDIR=1
+      install:
+        - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
+        - git clone -b $BOOST_BRANCH https://github.com/boostorg/config.git ../config
+      script:
+        - cd test/cmake_subdir_test && mkdir __build__ && cd __build__
+        - cmake ..
+        - cmake --build .
+        - cmake --build . --target check
+
+    - os: linux
+      env: CMAKE_INSTALL=1
+      script:
+        - mkdir __build__ && cd __build__
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_DEBUG=1 -DBOOST_INCLUDE_LIBRARIES=assert,config -DCMAKE_INSTALL_PREFIX=~/.local ..
+        - cmake --build . --target install
+        - cd ../test/cmake_install_test && mkdir __build__ && cd __build__
+        - cmake -DCMAKE_INSTALL_PREFIX=~/.local ..
+        - cmake --build .
+        - cmake --build . --target check
+
 
 install:
   - BOOST_BRANCH=develop && [ "$TRAVIS_BRANCH" == "master" ] && BOOST_BRANCH=master || true
