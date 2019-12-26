@@ -12,13 +12,7 @@ project(boost_assert VERSION "${BOOST_SUPERPROJECT_VERSION}" LANGUAGES CXX)
 add_library(boost_assert INTERFACE)
 add_library(Boost::assert ALIAS boost_assert)
 
-set_property(TARGET boost_assert PROPERTY EXPORT_NAME assert)
-
-target_include_directories(boost_assert
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-)
+target_include_directories(boost_assert INTERFACE include)
 
 target_link_libraries(boost_assert
     INTERFACE
@@ -29,9 +23,7 @@ include(BoostInstall OPTIONAL RESULT_VARIABLE HAVE_BOOST_INSTALL)
 
 if(HAVE_BOOST_INSTALL)
 
-    install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
-
-    boost_install(boost_assert)
+    boost_install(TARGETS boost_assert HEADER_DIRECTORY include/)
 
 endif()
 
