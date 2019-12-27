@@ -63,7 +63,7 @@ test_script:
   - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C MinSizeRel
   - if not "%CMAKE%" == ""  ctest --output-on-failure -R boost_assert -C RelWithDebInfo
 
-  - if not "%CMAKE_SUBDIR%" == ""  cd test/cmake_subdir_test && mkdir __build__ && cd __build__
+  - if not "%CMAKE_SUBDIR%" == ""  cd libs/assert/test/cmake_subdir_test && mkdir __build__ && cd __build__
   - if not "%CMAKE_SUBDIR%" == ""  cmake ..
   - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config Debug && cmake --build . --target check --config Debug
   - if not "%CMAKE_SUBDIR%" == ""  cmake --build . --config Release && cmake --build . --target check --config Release
