@@ -6,6 +6,6 @@
 
 int main()
 {
-	int x = 5;
-	BOOST_ASSERT( x > 4 );
+    int x = 5;
+    BOOST_ASSERT( x > 4 );
 }
