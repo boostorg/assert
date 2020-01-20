@@ -10,6 +10,7 @@
 #include <boost/current_function.hpp>
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
+#include <iosfwd>
 
 namespace boost
 {
@@ -53,6 +54,29 @@ public:
         return column_;
     }
 };
+
+template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ostream<E, T> & os, source_location const & loc )
+{
+    os.width( 0 );
+
+    if( loc.line() == 0 )
+    {
+        os << "(unknown source location)";
+    }
+    else
+    {
+        os << loc.file_name() << ':' << loc.line();
+
+        if( loc.column() )
+        {
+            os << ':' << loc.column();
+        }
+
+        os << ": in function '" << loc.function_name() << '\'';
+    }
+
+    return os;
+}
 
 } // namespace boost
 
