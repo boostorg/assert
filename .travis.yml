@@ -1,10 +1,8 @@
-# Copyright 2016-2018 Peter Dimov
+# Copyright 2016-2020 Peter Dimov
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://boost.org/LICENSE_1_0.txt)
 
 language: cpp
-
-sudo: false
 
 branches:
   only:
@@ -274,6 +272,7 @@ matrix:
               key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
 
     - os: linux
+      dist: trusty
       compiler: clang++-libc++
       env: TOOLSET=clang COMPILER=clang++-libc++ CXXSTD=03,11,14,1z
       addons:
@@ -307,7 +306,7 @@ matrix:
       env: CMAKE_INSTALL=1
       script:
         - mkdir __build__ && cd __build__
-        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 -DBOOST_INCLUDE_LIBRARIES="assert;config" -DCMAKE_INSTALL_PREFIX=~/.local ..
+        - cmake -DBOOST_ENABLE_CMAKE=1 -DBoost_VERBOSE=1 -DBOOST_INCLUDE_LIBRARIES=assert -DCMAKE_INSTALL_PREFIX=~/.local ..
         - cmake --build . --target install
         - cd ../libs/assert/test/cmake_install_test && mkdir __build__ && cd __build__
         - cmake -DCMAKE_INSTALL_PREFIX=~/.local ..
