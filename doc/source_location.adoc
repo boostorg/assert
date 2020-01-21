@@ -38,6 +38,10 @@ struct source_location
   constexpr uint_least32_t column() const noexcept;
 };
 
+template<class E, class T>
+  std::basic_ostream<E, T> &
+  operator<<( std::basic_ostream<E, T> & os, source_location const & loc );
+
 } // namespace boost
 
 #define BOOST_CURRENT_LOCATION \
@@ -62,6 +66,17 @@ constexpr source_location(char const* file, uint_least32_t line,
 Effects: :: Constructs a `source_location` object for which `file_name()`
 returns `file`, `function_name()` returns `function`, `line()` returns the
 `line` argument and `column()` returns the `column` argument.
+
+## operator<<
+
+```
+template<class E, class T>
+  std::basic_ostream<E, T> &
+  operator<<( std::basic_ostream<E, T> & os, source_location const & loc );
+```
+
+Effects: :: Outputs a string representation of `loc` to `os`.
+Returns: :: `os`.
 
 ## BOOST_CURRENT_LOCATION
 
