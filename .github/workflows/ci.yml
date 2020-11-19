@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup
-        if: !startsWith( matrix.os, 'windows-' )
+        if: "!startsWith( matrix.os, 'windows-' )"
         run: |
           REF=${GITHUB_BASE_REF:-$GITHUB_REF}
           BOOST_BRANCH=develop && [ "$REF" == "master" ] && BOOST_BRANCH=master || true
@@ -64,7 +64,7 @@ jobs:
           ./b2 -d0 headers
 
       - name: Setup (Windows)
-        if: startsWith( matrix.os, 'windows-' )
+        if: "startsWith( matrix.os, 'windows-' )"
         shell: cmd
         run: |
           set BOOST_BRANCH=develop
