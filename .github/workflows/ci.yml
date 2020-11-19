@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+
+env:
+  UBSAN_OPTIONS: print_stacktrace=1
+
+jobs:
+  linux:
+    strategy:
+      matrix:
+        include:
+          - toolset: gcc-5
+            cxxstd: "03,11,14,1z"
+          - toolset: gcc-6
+            cxxstd: "03,11,14,1z"
+          - toolset: gcc-7
+            cxxstd: "03,11,14,17"
+          - toolset: gcc-8
+            cxxstd: "03,11,14,17,2a"
+          - toolset: gcc-9
+            cxxstd: "03,11,14,17,2a"
+          - toolset: gcc-10
+            cxxstd: "03,11,14,17,2a"
+          - toolset: clang
+            cxxstd: "03,11,14,17,2a"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup
+        run: |
+          cd ..
+          git clone -b $GITHUB_BASE_REF --depth 1 https://github.com/boostorg/boost.git boost-root
+          cd boost-root
+          cp -r $GITHUB_WORKSPACE/* libs/assert
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" assert
+          ./bootstrap.sh
+          ./b2 headers
+
+      - name: Test
+        run: |
+          cd boost-root
+          ./b2 -j3 libs/assert/test toolset=${{matrix.toolset}} cxxstd=${{cxxstd}}
