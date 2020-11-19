@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup
-        shell: bash
+        if: !startsWith( matrix.os, 'windows-' )
         run: |
           REF=${GITHUB_BASE_REF:-$GITHUB_REF}
           BOOST_BRANCH=develop && [ "$REF" == "master" ] && BOOST_BRANCH=master || true
@@ -61,7 +61,22 @@ jobs:
           git submodule update --init tools/boostdep
           python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" assert
           ./bootstrap.sh
-          ./b2 headers
+          ./b2 -d0 headers
+
+      - name: Setup (Windows)
+        if: startsWith( matrix.os, 'windows-' )
+        shell: cmd
+        run: |
+          set BOOST_BRANCH=develop
+          if "%GITHUB_REF%" == "master" set BOOST_BRANCH=master
+          cd ..
+          git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
+          cd boost-root
+          xcopy /s /e /q %GITHUB_WORKSPACE% libs\assert\
+          git submodule update --init tools/boostdep
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" assert
+          cmd /c bootstrap
+          b2 -d0 headers
 
       - name: Test
         run: |
