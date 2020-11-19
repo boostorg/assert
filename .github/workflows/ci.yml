@@ -46,4 +46,4 @@ jobs:
       - name: Test
         run: |
           cd boost-root
-          ./b2 -j3 libs/assert/test toolset=${{matrix.toolset}} cxxstd=${{cxxstd}}
+          ./b2 -j3 libs/assert/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
