@@ -35,7 +35,7 @@ jobs:
       - name: Setup
         run: |
           cd ..
-          git clone -b $GITHUB_BASE_REF --depth 1 https://github.com/boostorg/boost.git boost-root
+          git clone -b ${GITHUB_BASE_REF:-$GITHUB_REF} --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
           cp -r $GITHUB_WORKSPACE/* libs/assert
           git submodule update --init tools/boostdep
