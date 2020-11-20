@@ -3,8 +3,13 @@ name: CI
 on:
   pull_request:
   push:
+    branches:
+      - master
+      - develop
+      - feature/**
 
 env:
+  LIBRARY: assert
   UBSAN_OPTIONS: print_stacktrace=1
 
 jobs:
@@ -74,9 +79,9 @@ jobs:
           cd ..
           git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
-          cp -r $GITHUB_WORKSPACE/* libs/assert
+          cp -r $GITHUB_WORKSPACE/* libs/$LIBRARY
           git submodule update --init tools/boostdep
-          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" assert
+          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" $LIBRARY
           ./bootstrap.sh
           ./b2 -d0 headers
 
@@ -90,13 +95,20 @@ jobs:
           cd ..
           git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
           cd boost-root
-          xcopy /s /e /q %GITHUB_WORKSPACE% libs\assert\
+          xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
           git submodule update --init tools/boostdep
           python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" assert
           cmd /c bootstrap
           b2 -d0 headers
 
-      - name: Test
+      - name: Test (POSIX)
+        if: "!startsWith( matrix.os, 'windows-' )"
         run: |
           cd ../boost-root
-          ./b2 -j3 libs/assert/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
+          ./b2 -j3 libs/$LIBRARY/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
+
+      - name: Test (Windows)
+        if: "startsWith( matrix.os, 'windows-' )"
+        run: |
+          cd ../boost-root
+          ./b2 -j3 libs/%LIBRARY%/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
