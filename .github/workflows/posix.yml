@@ -1,4 +1,4 @@
-name: CI
+name: POSIX
 
 on:
   pull_request:
@@ -55,12 +55,6 @@ jobs:
           - toolset: clang
             cxxstd: "03,11,14,17,2a"
             os: macos-10.15
-          - toolset: msvc-14.1
-            cxxstd: "14,17,latest"
-            os: windows-2016
-          - toolset: msvc-14.2
-            cxxstd: "14,17,latest"
-            os: windows-2019
 
     runs-on: ${{matrix.os}}
 
@@ -71,8 +65,7 @@ jobs:
         if: matrix.install
         run: sudo apt install ${{matrix.install}}
 
-      - name: Setup Boost (POSIX)
-        if: "!startsWith( matrix.os, 'windows-' )"
+      - name: Setup Boost
         run: |
           REF=${GITHUB_BASE_REF:-$GITHUB_REF}
           BOOST_BRANCH=develop && [ "$REF" == "master" ] && BOOST_BRANCH=master || true
@@ -85,30 +78,7 @@ jobs:
           ./bootstrap.sh
           ./b2 -d0 headers
 
-      - name: Setup Boost (Windows)
-        if: "startsWith( matrix.os, 'windows-' )"
-        shell: cmd
-        run: |
-          if "%GITHUB_BASE_REF%" == "" set GITHUB_BASE_REF=%GITHUB_REF%
-          set BOOST_BRANCH=develop
-          if "%GITHUB_BASE_REF%" == "master" set BOOST_BRANCH=master
-          cd ..
-          git clone -b %BOOST_BRANCH% --depth 1 https://github.com/boostorg/boost.git boost-root
-          cd boost-root
-          xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
-          git submodule update --init tools/boostdep
-          python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" assert
-          cmd /c bootstrap
-          b2 -d0 headers
-
-      - name: Test (POSIX)
-        if: "!startsWith( matrix.os, 'windows-' )"
+      - name: Run tests
         run: |
           cd ../boost-root
           ./b2 -j3 libs/$LIBRARY/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
-
-      - name: Test (Windows)
-        if: "startsWith( matrix.os, 'windows-' )"
-        run: |
-          cd ../boost-root
-          ./b2 -j3 libs/%LIBRARY%/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
