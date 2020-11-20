@@ -45,6 +45,7 @@ jobs:
           b2 -d0 headers
 
       - name: Run tests
+        shell: cmd
         run: |
           cd ../boost-root
           ./b2 -j3 libs/%LIBRARY%/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
