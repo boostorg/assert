@@ -23,6 +23,9 @@ jobs:
           - toolset: msvc-14.2
             cxxstd: "14,17,latest"
             os: windows-2019
+          - toolset: gcc
+            cxxstd: "03,11,14,17,2a"
+            os: windows-2019
 
     runs-on: ${{matrix.os}}
 
