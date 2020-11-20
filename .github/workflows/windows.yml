@@ -23,6 +23,12 @@ jobs:
           - toolset: msvc-14.2
             cxxstd: "14,17,latest"
             os: windows-2019
+          - toolset: clang-win
+            cxxstd: "14,17,latest"
+            os: windows-2016
+          - toolset: clang-win
+            cxxstd: "14,17,latest"
+            os: windows-2019
 
     runs-on: ${{matrix.os}}
 
@@ -48,4 +54,4 @@ jobs:
         shell: cmd
         run: |
           cd ../boost-root
-          ./b2 -j3 libs/%LIBRARY%/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
+          b2 -j3 libs/%LIBRARY%/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}}
