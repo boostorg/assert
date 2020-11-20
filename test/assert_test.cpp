@@ -19,7 +19,7 @@
 
 void test_default()
 {
-    int x = 1;
+    int x = 1; (void)x;
 
     BOOST_ASSERT(1);
     BOOST_ASSERT(x);
