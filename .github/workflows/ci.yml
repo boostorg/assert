@@ -13,6 +13,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - toolset: gcc-4.7
+            cxxstd: "03,11"
+            os: ubuntu-16.04
+          - toolset: gcc-4.8
+            cxxstd: "03,11"
+            os: ubuntu-16.04
+          - toolset: gcc-4.9
+            cxxstd: "03,11"
+            os: ubuntu-16.04
           - toolset: gcc-5
             cxxstd: "03,11,14,1z"
             os: ubuntu-16.04
@@ -49,7 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup
+      - name: Setup (POSIX)
         if: "!startsWith( matrix.os, 'windows-' )"
         run: |
           REF=${GITHUB_BASE_REF:-$GITHUB_REF}
@@ -62,6 +71,10 @@ jobs:
           python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" assert
           ./bootstrap.sh
           ./b2 -d0 headers
+
+      - name: Install GCC
+        if: "matrix.toolset == 'gcc-6' || startsWith( matrix.toolset, 'gcc-4.' )"
+        run: apt install ${{matrix.toolset}}
 
       - name: Setup (Windows)
         if: "startsWith( matrix.os, 'windows-' )"
