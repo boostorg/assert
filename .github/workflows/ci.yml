@@ -74,7 +74,7 @@ jobs:
 
       - name: Install GCC
         if: "matrix.toolset == 'gcc-6' || startsWith( matrix.toolset, 'gcc-4.' )"
-        run: apt install ${{matrix.toolset}}
+        run: sudo apt install ${{matrix.toolset}}
 
       - name: Setup (Windows)
         if: "startsWith( matrix.os, 'windows-' )"
