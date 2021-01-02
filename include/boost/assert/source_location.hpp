@@ -86,7 +86,14 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 
 #else
 
-#  define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
+// Explicitly cast to const char * here to silence clang-tidy warning
+// (https://bugs.llvm.org/show_bug.cgi?id=28480)
+#define BOOST_CURRENT_LOCATION                              \
+    ::boost::source_location(                               \
+        __FILE__,                                           \
+        __LINE__,                                           \
+        static_cast<const char *>( BOOST_CURRENT_FUNCTION ) \
+    )
 
 #endif
 
