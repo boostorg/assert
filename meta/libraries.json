@@ -10,5 +10,6 @@
     "description": "Customizable assert macros.",
     "category": [
         "Correctness"
-    ]
+    ],
+    "cxxstd": "03"
 }
