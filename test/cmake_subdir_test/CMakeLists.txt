@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.5...3.16)
 
 project(cmake_subdir_test LANGUAGES CXX)
 
-add_subdirectory(../../../assert boostorg/assert)
+add_subdirectory(../.. boostorg/assert)
 add_subdirectory(../../../config boostorg/config)
 
 add_executable(main main.cpp)
