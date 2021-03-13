@@ -1,7 +1,91 @@
 load("@rules_cc//cc:defs.bzl", "cc_test")
 
 cc_test(
-    name = "test",
+    name = "assert_is_void_test",
+    srcs = ["assert_is_void_test.cpp"],
+    deps = ["//:assert"],
+)
+
+cc_test(
+    name = "assert_msg_test2",
+    srcs = ["assert_msg_test2.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
+)
+
+cc_test(
+    name = "assert_test",
+    srcs = ["assert_test.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
+)
+
+cc_test(
+    name = "assert_test2",
+    srcs = ["assert_test2.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
+)
+
+cc_test(
+    name = "current_function_test",
+    srcs = ["current_function_test.cpp"],
+    deps = ["//:assert"],
+)
+
+cc_test(
+    name = "current_function_test2",
+    srcs = ["current_function_test2.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
+)
+
+cc_test(
+    name = "quick",
     srcs = ["quick.cpp"],
     deps = ["//:assert"],
+)
+
+cc_test(
+    name = "source_location_test",
+    srcs = ["source_location_test.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
+)
+
+cc_test(
+    name = "source_location_test2",
+    srcs = ["source_location_test2.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
+)
+
+cc_test(
+    name = "source_location_test3",
+    srcs = ["source_location_test3.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
+)
+
+cc_test(
+    name = "verify_test",
+    srcs = ["verify_test.cpp"],
+    deps = [
+        "//:assert",
+        "@boost//core",
+    ],
 )
