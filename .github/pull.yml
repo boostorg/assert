@@ -2,6 +2,6 @@ version: "1"
 rules:
 - base: develop
   upstream: boostorg:assert
-  mergeMethod: rebase
+  mergeMethod: merge
   conflictReviewers:
   - zaucy
