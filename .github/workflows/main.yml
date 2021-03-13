@@ -7,8 +7,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build_ubuntu_20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mishas/setup-bazelisk-action@v1
+      - name: bazel cache
+        uses: actions/cache@v2
+        with:
+          path: "~/.cache/bazel"
+          key: bazel
+      - run: bazel build //...
+      - run: bazel test //...
+  build_windows_latest:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: mishas/setup-bazelisk-action@v1
