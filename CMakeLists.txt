@@ -17,16 +17,6 @@ target_link_libraries(boost_assert
     Boost::config
 )
 
-# boost_install requires PROJECT_VERSION
-# Without the superproject, we don't have any, so skip installation
-
-if(BOOST_SUPERPROJECT_VERSION)
-
-  include(BoostInstall)
-  boost_install(TARGETS boost_assert HEADER_DIRECTORY include/)
-
-endif()
-
 # BUILD_TESTING is the standard CTest variable that enables testing
 
 if(BUILD_TESTING)
