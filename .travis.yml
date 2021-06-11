@@ -342,6 +342,7 @@ matrix:
     - os: linux
       env: CMAKE_INSTALL=1
       script:
+        - pip install --user cmake
         - mkdir __build__ && cd __build__
         - cmake -DBOOST_INCLUDE_LIBRARIES=assert -DCMAKE_INSTALL_PREFIX=~/.local ..
         - cmake --build . --target install
