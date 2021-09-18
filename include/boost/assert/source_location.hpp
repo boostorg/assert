@@ -12,6 +12,7 @@
 #include <boost/cstdint.hpp>
 #include <iosfwd>
 #include <string>
+#include <cstdio>
 
 namespace boost
 {
@@ -71,12 +72,12 @@ public:
 
         char buffer[ 16 ];
 
-        sprintf( buffer, ":%ld", static_cast<long>( line() ) );
+        std::sprintf( buffer, ":%ld", static_cast<long>( line() ) );
         r += buffer;
 
         if( column() )
         {
-            sprintf( buffer, ":%ld", static_cast<long>( column() ) );
+            std::sprintf( buffer, ":%ld", static_cast<long>( column() ) );
             r += buffer;
         }
 
