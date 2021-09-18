@@ -10,6 +10,11 @@ int main()
 {
     {
         boost::source_location loc;
+        BOOST_TEST_EQ( loc.to_string(), std::string( "(unknown source location)" ) );
+    }
+
+    {
+        boost::source_location loc;
 
         std::ostringstream os;
         os << loc;
@@ -19,11 +24,16 @@ int main()
 
     {
         boost::source_location loc = BOOST_CURRENT_LOCATION;
+        BOOST_TEST_EQ( loc.to_string(), std::string( __FILE__ ) + ":26 in function '" + BOOST_CURRENT_FUNCTION + "'" );
+    }
+
+    {
+        boost::source_location loc = BOOST_CURRENT_LOCATION;
 
         std::ostringstream os;
         os << loc;
 
-        BOOST_TEST_EQ( os.str(), std::string( __FILE__ ) + ":21: in function '" + BOOST_CURRENT_FUNCTION + "'" );
+        BOOST_TEST_EQ( os.str(), std::string( __FILE__ ) + ":31 in function '" + BOOST_CURRENT_FUNCTION + "'" );
     }
 
     return boost::report_errors();
