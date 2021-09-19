@@ -30,7 +30,7 @@ include::changes.adoc[]
 
 This documentation is
 
-* Copyright 2002, 2007, 2014, 2017, 2019, 2020 Peter Dimov
+* Copyright 2002, 2007, 2014, 2017, 2019-2021 Peter Dimov
 * Copyright 2011 Beman Dawes
 * Copyright 2015 Ion Gaztañaga
 * Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].

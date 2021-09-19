@@ -1,5 +1,5 @@
 ////
-Copyright 2019 Peter Dimov
+Copyright 2019, 2021 Peter Dimov
 Distributed under the Boost Software License, Version 1.0.
 http://www.boost.org/LICENSE_1_0.txt
 ////
@@ -28,19 +28,21 @@ namespace boost
 
 struct source_location
 {
-  constexpr source_location() noexcept;
-  constexpr source_location(char const* file, uint_least32_t line,
-    char const* function, uint_least32_t column = 0) noexcept;
+    constexpr source_location() noexcept;
+    constexpr source_location(char const* file, uint_least32_t line,
+      char const* function, uint_least32_t column = 0) noexcept;
 
-  constexpr char const* file_name() const noexcept;
-  constexpr char const* function_name() const noexcept;
-  constexpr uint_least32_t line() const noexcept;
-  constexpr uint_least32_t column() const noexcept;
+    constexpr char const* file_name() const noexcept;
+    constexpr char const* function_name() const noexcept;
+    constexpr uint_least32_t line() const noexcept;
+    constexpr uint_least32_t column() const noexcept;
+
+    std::string to_string() const;
 };
 
 template<class E, class T>
   std::basic_ostream<E, T> &
-  operator<<( std::basic_ostream<E, T> & os, source_location const & loc );
+    operator<<( std::basic_ostream<E, T> & os, source_location const & loc );
 
 } // namespace boost
 
@@ -67,16 +69,26 @@ Effects: :: Constructs a `source_location` object for which `file_name()`
 returns `file`, `function_name()` returns `function`, `line()` returns the
 `line` argument and `column()` returns the `column` argument.
 
+## to_string
+
+```
+std::string to_string() const;
+```
+
+Returns: ::
+  a string representation of `*this`.
+
 ## operator<<
 
 ```
 template<class E, class T>
   std::basic_ostream<E, T> &
-  operator<<( std::basic_ostream<E, T> & os, source_location const & loc );
+    operator<<( std::basic_ostream<E, T> & os, source_location const & loc );
 ```
 
-Effects: :: Outputs a string representation of `loc` to `os`.
-Returns: :: `os`.
+Effects: :: `os << loc.to_string()`.
+Returns: ::
+  `os`.
 
 ## BOOST_CURRENT_LOCATION
 
