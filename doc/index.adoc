@@ -12,6 +12,8 @@ Peter Dimov
 :toc: left
 :idprefix:
 :docinfo: private-footer
+:source-highlighter: rouge
+:source-language: c++
 
 The Boost.Assert library provides several configurable diagnostic macros
 similar in behavior and purpose to the standard macro `assert` from `<cassert>`.
