@@ -9,7 +9,8 @@
     ],
     "description": "Customizable assert macros.",
     "category": [
-        "Correctness"
+        "Correctness",
+        "Error-handling"
     ],
     "cxxstd": "03"
 }
