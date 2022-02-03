@@ -72,12 +72,12 @@ public:
 
         char buffer[ 16 ];
 
-        std::sprintf( buffer, ":%ld", static_cast<long>( line() ) );
+        std::sprintf( buffer, ":%lu", static_cast<unsigned long>( line() ) );
         r += buffer;
 
         if( column() )
         {
-            std::sprintf( buffer, ":%ld", static_cast<long>( column() ) );
+            std::sprintf( buffer, ":%lu", static_cast<unsigned long>( column() ) );
             r += buffer;
         }
 
