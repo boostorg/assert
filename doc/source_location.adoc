@@ -75,7 +75,7 @@ constexpr source_location( std::source_location const& loc ) noexcept;
 
 Effects: :: Constructs a `source_location` object for which `file_name()`
 returns `loc.file_name()`, `function_name()` returns `loc.function_name()`,
-`line()` returns `loc.line()` argument and `column()` returns `loc.column()`.
+`line()` returns `loc.line()` and `column()` returns `loc.column()`.
 
 ## to_string
 
