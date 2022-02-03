@@ -147,12 +147,12 @@ inline char const* srcloc_strip_top_level( char const* fn )
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, "")
 
-#elif defined(__GNUC__)
+#elif defined(__GNUC__) || defined(__clang__)
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, ::boost::detail::srcloc_strip_top_level(__PRETTY_FUNCTION__))
 
 # if defined(__clang__)
-//#  pragma clang diagnostic ignored "-W"
+#  pragma clang diagnostic ignored "-Wpredefined-identifier-outside-function"
 # endif
 
 #else
