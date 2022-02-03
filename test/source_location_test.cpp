@@ -25,7 +25,7 @@ int main()
         BOOST_TEST_EQ( loc.column(), 0 );
     }
 
-#if !defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)
+#if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 
     {
         std::source_location loc = std::source_location::current();

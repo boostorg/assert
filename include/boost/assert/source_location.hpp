@@ -14,7 +14,7 @@
 #include <string>
 #include <cstdio>
 
-#if !defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)
+#if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 # include <source_location>
 #endif
 
@@ -40,7 +40,7 @@ public:
     {
     }
 
-#if !defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)
+#if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 
     BOOST_CONSTEXPR source_location( std::source_location const& loc ) BOOST_NOEXCEPT: file_( loc.file_name() ), function_( loc.function_name() ), line_( loc.line() ), column_( loc.column() )
     {
