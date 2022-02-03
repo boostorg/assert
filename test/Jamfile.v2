@@ -40,3 +40,4 @@ run current_function_test2.cpp ;
 run source_location_test.cpp ;
 run source_location_test2.cpp ;
 run source_location_test3.cpp ;
+run source_location_test4.cpp ;

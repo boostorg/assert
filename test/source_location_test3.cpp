@@ -23,34 +23,66 @@ int main()
     }
 
     {
-        boost::source_location loc( __FILE__, __LINE__, BOOST_CURRENT_FUNCTION );
-        BOOST_TEST_EQ( loc.to_string(), std::string( __FILE__ ) + ":26 in function '" + BOOST_CURRENT_FUNCTION + "'" );
+        boost::source_location loc( "file", 5, "" );
+        BOOST_TEST_EQ( loc.to_string(), std::string( "file:5" ) );
     }
 
     {
-        boost::source_location loc( __FILE__, __LINE__, BOOST_CURRENT_FUNCTION );
+        boost::source_location loc( "file", 5, "" );
 
         std::ostringstream os;
         os << loc;
 
-        BOOST_TEST_EQ( os.str(), std::string( __FILE__ ) + ":31 in function '" + BOOST_CURRENT_FUNCTION + "'" );
+        BOOST_TEST_EQ( os.str(), std::string( "file:5" ) );
+    }
+
+    {
+        boost::source_location loc( "file", 7, "main" );
+        BOOST_TEST_EQ( loc.to_string(), std::string( "file:7 in function 'main'" ) );
+    }
+
+    {
+        boost::source_location loc( "file", 7, "main" );
+
+        std::ostringstream os;
+        os << loc;
+
+        BOOST_TEST_EQ( os.str(), std::string( "file:7 in function 'main'" ) );
+    }
+
+    {
+        boost::source_location loc( "file", 11, "main", 13 );
+        BOOST_TEST_EQ( loc.to_string(), std::string( "file:11:13 in function 'main'" ) );
+    }
+
+    {
+        boost::source_location loc( "file", 11, "main", 13 );
+
+        std::ostringstream os;
+        os << loc;
+
+        BOOST_TEST_EQ( os.str(), std::string( "file:11:13 in function 'main'" ) );
+    }
+
+    {
+        boost::source_location loc( "file", 17, "", 19 );
+        BOOST_TEST_EQ( loc.to_string(), std::string( "file:17:19" ) );
+    }
+
+    {
+        boost::source_location loc( "file", 17, "", 19 );
+
+        std::ostringstream os;
+        os << loc;
+
+        BOOST_TEST_EQ( os.str(), std::string( "file:17:19" ) );
     }
 
     {
         boost::source_location loc = BOOST_CURRENT_LOCATION;
 
-        std::string prefix = std::string( __FILE__ ) + ":40";
-
-#if !( defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L )
-
-        BOOST_TEST_EQ( loc.to_string(), prefix + " in function '" + BOOST_CURRENT_FUNCTION + "'" );
-
-#else
-
-        // column and function vary when coming from std::source_location::current()
+        std::string prefix = std::string( __FILE__ ) + ":82";
         BOOST_TEST_EQ( loc.to_string().substr( 0, prefix.size() ), prefix );
-
-#endif
     }
 
     {
@@ -59,18 +91,8 @@ int main()
         std::ostringstream os;
         os << loc;
 
-        std::string prefix = std::string( __FILE__ ) + ":57";
-
-#if !( defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L )
-
-        BOOST_TEST_EQ( os.str(), prefix + " in function '" + BOOST_CURRENT_FUNCTION + "'" );
-
-#else
-
-        // column and function vary when coming from std::source_location::current()
+        std::string prefix = std::string( __FILE__ ) + ":89";
         BOOST_TEST_EQ( os.str().substr( 0, prefix.size() ), prefix );
-
-#endif
     }
 
     return boost::report_errors();

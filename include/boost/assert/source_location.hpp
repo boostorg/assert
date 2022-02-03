@@ -9,10 +9,12 @@
 
 #include <boost/current_function.hpp>
 #include <boost/config.hpp>
+#include <boost/config/workaround.hpp>
 #include <boost/cstdint.hpp>
 #include <iosfwd>
 #include <string>
 #include <cstdio>
+#include <cstring>
 
 #if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 # include <source_location>
@@ -75,7 +77,9 @@ public:
 
     std::string to_string() const
     {
-        if( line() == 0 )
+        unsigned long ln = line();
+
+        if( ln == 0 )
         {
             return "(unknown source location)";
         }
@@ -84,18 +88,25 @@ public:
 
         char buffer[ 16 ];
 
-        std::sprintf( buffer, ":%lu", static_cast<unsigned long>( line() ) );
+        std::sprintf( buffer, ":%lu", ln );
         r += buffer;
 
-        if( column() )
+        unsigned long co = column();
+
+        if( co )
         {
-            std::sprintf( buffer, ":%lu", static_cast<unsigned long>( column() ) );
+            std::sprintf( buffer, ":%lu", co );
             r += buffer;
         }
 
-        r += " in function '";
-        r += function_name();
-        r += '\'';
+        char const* fn = function_name();
+
+        if( *fn != 0 )
+        {
+            r += " in function '";
+            r += fn;
+            r += '\'';
+        }
 
         return r;
     }
@@ -112,25 +123,42 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
     return os;
 }
 
+namespace detail
+{
+
+inline char const* srcloc_strip_top_level( char const* fn )
+{
+    return std::strcmp( fn, "top level" ) == 0? "": fn;
+}
+
+} // namespace detail
+
 } // namespace boost
 
 #if defined( BOOST_DISABLE_CURRENT_LOCATION )
 
-#  define BOOST_CURRENT_LOCATION ::boost::source_location()
+# define BOOST_CURRENT_LOCATION ::boost::source_location()
 
-#elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
+#elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L && !BOOST_WORKAROUND(BOOST_MSVC, < 1931)
 
-#  define BOOST_CURRENT_LOCATION ::boost::source_location(std::source_location::current())
+# define BOOST_CURRENT_LOCATION ::boost::source_location(::std::source_location::current())
 
-#elif defined(__clang_analyzer__)
+#elif defined(BOOST_DISABLE_CURRENT_FUNCTION) || defined(__clang_analyzer__) // https://bugs.llvm.org/show_bug.cgi?id=28480
 
-// Cast to char const* to placate clang-tidy
-// https://bugs.llvm.org/show_bug.cgi?id=28480
-#  define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, static_cast<char const*>(BOOST_CURRENT_FUNCTION))
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, "")
+
+#elif defined(__GNUC__)
+
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, ::boost::detail::srcloc_strip_top_level(__PRETTY_FUNCTION__))
+
+# if defined(__clang__)
+//#  pragma clang diagnostic ignored "-W"
+# endif
 
 #else
 
-#  define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
+// __func__ macros aren't allowed outside functions, but BOOST_CURRENT_LOCATION is
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, "")
 
 #endif
 

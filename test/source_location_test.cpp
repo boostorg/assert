@@ -17,17 +17,28 @@ int main()
     }
 
     {
-        boost::source_location loc = BOOST_CURRENT_LOCATION;
+        boost::source_location loc( __FILE__, __LINE__, "main" );
 
         BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
         BOOST_TEST_EQ( loc.line(), 20 );
-
-#if !( defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L )
-
-        BOOST_TEST_CSTR_EQ( loc.function_name(), BOOST_CURRENT_FUNCTION );
+        BOOST_TEST_CSTR_EQ( loc.function_name(), "main" );
         BOOST_TEST_EQ( loc.column(), 0 );
+    }
 
-#endif
+    {
+        boost::source_location loc( "file", 1, "main", 2 );
+
+        BOOST_TEST_CSTR_EQ( loc.file_name(), "file" );
+        BOOST_TEST_EQ( loc.line(), 1 );
+        BOOST_TEST_CSTR_EQ( loc.function_name(), "main" );
+        BOOST_TEST_EQ( loc.column(), 2 );
+    }
+
+    {
+        boost::source_location loc = BOOST_CURRENT_LOCATION;
+
+        BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
+        BOOST_TEST_EQ( loc.line(), 38 );
     }
 
 #if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
