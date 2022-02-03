@@ -57,8 +57,7 @@ constexpr source_location() noexcept;
 ```
 
 Effects: :: Constructs a `source_location` object for which `file_name()`
-and `function_name()` return `"(unknown)"`, and `line()` and `column()`
-return `0`.
+and `function_name()` return `""`, and `line()` and `column()` return `0`.
 
 ```
 constexpr source_location(char const* file, uint_least32_t line,

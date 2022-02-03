@@ -12,8 +12,8 @@ int main()
     {
         boost::source_location loc;
 
-        BOOST_TEST_CSTR_EQ( loc.file_name(), "(unknown)" );
-        BOOST_TEST_CSTR_EQ( loc.function_name(), "(unknown)" );
+        BOOST_TEST_CSTR_EQ( loc.file_name(), "" );
+        BOOST_TEST_CSTR_EQ( loc.function_name(), "" );
         BOOST_TEST_EQ( loc.line(), 0 );
         BOOST_TEST_EQ( loc.column(), 0 );
     }
@@ -21,9 +21,8 @@ int main()
     {
         boost::source_location loc = BOOST_CURRENT_LOCATION;
 
-
-        BOOST_TEST_CSTR_EQ( loc.file_name(), "(unknown)" );
-        BOOST_TEST_CSTR_EQ( loc.function_name(), "(unknown)" );
+        BOOST_TEST_CSTR_EQ( loc.file_name(), "" );
+        BOOST_TEST_CSTR_EQ( loc.function_name(), "" );
         BOOST_TEST_EQ( loc.line(), 0 );
         BOOST_TEST_EQ( loc.column(), 0 );
     }
