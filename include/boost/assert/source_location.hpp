@@ -14,6 +14,10 @@
 #include <string>
 #include <cstdio>
 
+#if !defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)
+# include <source_location>
+#endif
+
 namespace boost
 {
 
@@ -35,6 +39,14 @@ public:
     BOOST_CONSTEXPR source_location( char const * file, boost::uint_least32_t ln, char const * function, boost::uint_least32_t col = 0 ) BOOST_NOEXCEPT: file_( file ), function_( function ), line_( ln ), column_( col )
     {
     }
+
+#if !defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)
+
+    BOOST_CONSTEXPR source_location( std::source_location const& loc ) BOOST_NOEXCEPT: file_( loc.file_name() ), function_( loc.function_name() ), line_( loc.line() ), column_( loc.column() )
+    {
+    }
+
+#endif
 
     BOOST_CONSTEXPR char const * file_name() const BOOST_NOEXCEPT
     {

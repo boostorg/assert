@@ -14,6 +14,7 @@ http://www.boost.org/LICENSE_1_0.txt
 
 * `source_location().file_name()` and `source_location().function_name()`
   now return `""` instead of `"(unknown)"`.
+* Added a `source_location` constructor from `std::source_location`.
 
 ## Changes in 1.78.0
 

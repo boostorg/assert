@@ -25,5 +25,19 @@ int main()
         BOOST_TEST_EQ( loc.column(), 0 );
     }
 
+#if !defined(BOOST_NO_CXX20_HDR_SOURCE_LOCATION)
+
+    {
+        std::source_location loc = std::source_location::current();
+        boost::source_location loc2 = loc;
+
+        BOOST_TEST_CSTR_EQ( loc2.file_name(), loc.file_name() );
+        BOOST_TEST_CSTR_EQ( loc2.function_name(), loc.function_name() );
+        BOOST_TEST_EQ( loc2.line(), loc.line() );
+        BOOST_TEST_EQ( loc2.column(), loc.column() );
+    }
+
+#endif
+
     return boost::report_errors();
 }

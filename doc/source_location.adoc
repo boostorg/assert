@@ -29,8 +29,9 @@ namespace boost
 struct source_location
 {
     constexpr source_location() noexcept;
-    constexpr source_location(char const* file, uint_least32_t line,
-      char const* function, uint_least32_t column = 0) noexcept;
+    constexpr source_location( char const* file, uint_least32_t line,
+      char const* function, uint_least32_t column = 0 ) noexcept;
+    constexpr source_location( std::source_location const& loc ) noexcept;
 
     constexpr char const* file_name() const noexcept;
     constexpr char const* function_name() const noexcept;
@@ -60,13 +61,21 @@ Effects: :: Constructs a `source_location` object for which `file_name()`
 and `function_name()` return `""`, and `line()` and `column()` return `0`.
 
 ```
-constexpr source_location(char const* file, uint_least32_t line,
-  char const* function, uint_least32_t column = 0) noexcept;
+constexpr source_location( char const* file, uint_least32_t line,
+  char const* function, uint_least32_t column = 0 ) noexcept;
 ```
 
 Effects: :: Constructs a `source_location` object for which `file_name()`
 returns `file`, `function_name()` returns `function`, `line()` returns the
 `line` argument and `column()` returns the `column` argument.
+
+```
+constexpr source_location( std::source_location const& loc ) noexcept;
+```
+
+Effects: :: Constructs a `source_location` object for which `file_name()`
+returns `loc.file_name()`, `function_name()` returns `loc.function_name()`,
+`line()` returns `loc.line()` argument and `column()` returns `loc.column()`.
 
 ## to_string
 
