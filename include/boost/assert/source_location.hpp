@@ -118,6 +118,10 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 
 #  define BOOST_CURRENT_LOCATION ::boost::source_location()
 
+#elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
+
+#  define BOOST_CURRENT_LOCATION ::boost::source_location(std::source_location::current())
+
 #elif defined(__clang_analyzer__)
 
 // Cast to char const* to placate clang-tidy

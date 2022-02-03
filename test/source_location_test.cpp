@@ -20,9 +20,14 @@ int main()
         boost::source_location loc = BOOST_CURRENT_LOCATION;
 
         BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
-        BOOST_TEST_CSTR_EQ( loc.function_name(), BOOST_CURRENT_FUNCTION );
         BOOST_TEST_EQ( loc.line(), 20 );
+
+#if !( defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L )
+
+        BOOST_TEST_CSTR_EQ( loc.function_name(), BOOST_CURRENT_FUNCTION );
         BOOST_TEST_EQ( loc.column(), 0 );
+
+#endif
     }
 
 #if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
