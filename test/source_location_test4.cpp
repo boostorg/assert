@@ -8,6 +8,8 @@
 
 boost::source_location s_loc = BOOST_CURRENT_LOCATION;
 
+BOOST_STATIC_CONSTEXPR boost::source_location c_loc = BOOST_CURRENT_LOCATION;
+
 boost::source_location f( boost::source_location const& loc = BOOST_CURRENT_LOCATION )
 {
     return loc;
@@ -27,10 +29,15 @@ int main()
     }
 
     {
+        BOOST_TEST_CSTR_EQ( c_loc.file_name(), __FILE__ );
+        BOOST_TEST_EQ( c_loc.line(), 11 );
+    }
+
+    {
         boost::source_location loc = f();
 
         BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
-        BOOST_TEST( loc.line() == 11 || loc.line() == 30 );
+        BOOST_TEST( loc.line() == 13 || loc.line() == 37 );
     }
 
     return boost::report_errors();
