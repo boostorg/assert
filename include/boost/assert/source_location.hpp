@@ -123,6 +123,8 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
     return os;
 }
 
+#if defined(BOOST_GCC)
+
 namespace detail
 {
 
@@ -132,6 +134,8 @@ BOOST_CONSTEXPR inline char const* srcloc_strip_top_level( char const* fn )
 }
 
 } // namespace detail
+
+#endif // #if defined(BOOST_GCC)
 
 } // namespace boost
 
