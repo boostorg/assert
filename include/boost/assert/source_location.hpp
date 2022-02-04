@@ -123,37 +123,27 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
     return os;
 }
 
-namespace detail
-{
-
-inline char const* srcloc_strip_top_level( char const* fn )
-{
-    return std::strcmp( fn, "top level" ) == 0? "": fn;
-}
-
-} // namespace detail
-
 } // namespace boost
 
-#if defined( BOOST_DISABLE_CURRENT_LOCATION )
+#if defined(BOOST_DISABLE_CURRENT_LOCATION)
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location()
 
-#elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L && !BOOST_WORKAROUND(BOOST_MSVC, < 1931)
+#elif defined(BOOST_MSVC) && BOOST_MSVC >= 1926
+
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION(), __builtin_COLUMN())
+
+#elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location(::std::source_location::current())
 
-#elif defined(BOOST_DISABLE_CURRENT_FUNCTION) || defined(__clang_analyzer__) // https://bugs.llvm.org/show_bug.cgi?id=28480
+#elif defined(BOOST_CLANG) && BOOST_CLANG_VERSION >= 90000
 
-# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, "")
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION(), __builtin_COLUMN())
 
-#elif defined(__GNUC__) || defined(__clang__)
+#elif defined(BOOST_GCC) && BOOST_GCC >= 40800
 
-# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, ::boost::detail::srcloc_strip_top_level(__PRETTY_FUNCTION__))
-
-# if defined(__clang__)
-#  pragma clang diagnostic ignored "-Wpredefined-identifier-outside-function"
-# endif
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION())
 
 #else
 

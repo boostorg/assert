@@ -23,19 +23,8 @@ int main()
     {
         boost::source_location loc = f();
 
-#if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L && !BOOST_WORKAROUND(BOOST_MSVC, < 1931)
-
-        BOOST_TEST_CSTR_EQ( loc.file_name(), std::source_location::current().file_name() );
-        BOOST_TEST_CSTR_EQ( loc.function_name(), std::source_location::current().function_name() );
-        BOOST_TEST_EQ( loc.line(), 24 );
-
-#else
-
         BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
-        BOOST_TEST_EQ( loc.line(), 10 );
-        BOOST_TEST_CSTR_EQ( loc.function_name(), "" );
-
-#endif
+        BOOST_TEST( loc.line() == 10 || loc.line() == 24 );
     }
 
     return boost::report_errors();
