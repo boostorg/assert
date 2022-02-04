@@ -15,6 +15,9 @@ http://www.boost.org/LICENSE_1_0.txt
 * `source_location().file_name()` and `source_location().function_name()`
   now return `""` instead of `"(unknown)"`.
 * Added a `source_location` constructor from `std::source_location`.
+* Changed `BOOST_CURRENT_LOCATION` to more closely match the behavior of
+  `std::source_location::current()`, such as being usable at top level or
+  as a default function argument.
 
 ## Changes in 1.78.0
 
