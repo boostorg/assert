@@ -123,6 +123,16 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
     return os;
 }
 
+namespace detail
+{
+
+BOOST_CONSTEXPR inline char const* srcloc_strip_top_level( char const* fn )
+{
+    return std::strcmp( fn, "top level" ) == 0? "": fn;
+}
+
+} // namespace detail
+
 } // namespace boost
 
 #if defined(BOOST_DISABLE_CURRENT_LOCATION)
@@ -131,6 +141,8 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 
 #elif defined(BOOST_MSVC) && BOOST_MSVC >= 1926
 
+// std::source_location::current() is available in -std:c++20, but fails with consteval errors before 19.31, and doesn't produce
+// the correct result under 19.31, so prefer the built-ins
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION(), __builtin_COLUMN())
 
 #elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
@@ -141,9 +153,15 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION(), __builtin_COLUMN())
 
-#elif defined(BOOST_GCC) && BOOST_GCC >= 40800
+#elif defined(BOOST_GCC) && BOOST_GCC >= 70000
 
+// The built-ins are available in 4.8+, but are not constant expressions until 7
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION())
+
+#elif defined(BOOST_GCC)
+
+// __PRETTY_FUNCTION__ is allowed outside functions under GCC
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, ::boost::detail::srcloc_strip_top_level(__PRETTY_FUNCTION__))
 
 #else
 
