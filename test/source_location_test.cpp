@@ -41,6 +41,13 @@ int main()
         BOOST_TEST_EQ( loc.line(), 38 );
     }
 
+    {
+        BOOST_STATIC_CONSTEXPR boost::source_location loc = BOOST_CURRENT_LOCATION;
+
+        BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
+        BOOST_TEST_EQ( loc.line(), 45 );
+    }
+
 #if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 
     {
