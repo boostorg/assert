@@ -17,20 +17,20 @@ int main()
     }
 
     {
-        boost::source_location loc( __FILE__, __LINE__, "main" );
+        boost::source_location loc( __FILE__, __LINE__, "main()" );
 
         BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
         BOOST_TEST_EQ( loc.line(), 20 );
-        BOOST_TEST_CSTR_EQ( loc.function_name(), "main" );
+        BOOST_TEST_CSTR_EQ( loc.function_name(), "main()" );
         BOOST_TEST_EQ( loc.column(), 0 );
     }
 
     {
-        boost::source_location loc( "file", 1, "main", 2 );
+        boost::source_location loc( "file", 1, "main()", 2 );
 
         BOOST_TEST_CSTR_EQ( loc.file_name(), "file" );
         BOOST_TEST_EQ( loc.line(), 1 );
-        BOOST_TEST_CSTR_EQ( loc.function_name(), "main" );
+        BOOST_TEST_CSTR_EQ( loc.function_name(), "main()" );
         BOOST_TEST_EQ( loc.column(), 2 );
     }
 
