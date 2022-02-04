@@ -4,6 +4,7 @@
 
 #include <boost/assert/source_location.hpp>
 #include <boost/core/lightweight_test.hpp>
+#include <boost/config.hpp>
 
 boost::source_location s_loc = BOOST_CURRENT_LOCATION;
 
@@ -16,15 +17,20 @@ int main()
 {
     {
         BOOST_TEST_CSTR_EQ( s_loc.file_name(), __FILE__ );
-        BOOST_TEST_EQ( s_loc.line(), 8 );
+        BOOST_TEST_EQ( s_loc.line(), 9 );
+
+#if defined(BOOST_GCC) && BOOST_GCC < 90000
+        // '__static_initialization_and_destruction_0'
+#else
         BOOST_TEST_CSTR_EQ( s_loc.function_name(), "" );
+#endif
     }
 
     {
         boost::source_location loc = f();
 
         BOOST_TEST_CSTR_EQ( loc.file_name(), __FILE__ );
-        BOOST_TEST( loc.line() == 10 || loc.line() == 24 );
+        BOOST_TEST( loc.line() == 11 || loc.line() == 30 );
     }
 
     return boost::report_errors();
