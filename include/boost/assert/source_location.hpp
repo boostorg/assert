@@ -123,20 +123,6 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
     return os;
 }
 
-#if defined(BOOST_GCC)
-
-namespace detail
-{
-
-BOOST_CONSTEXPR inline char const* srcloc_strip_top_level( char const* fn )
-{
-    return std::strcmp( fn, "top level" ) == 0? "": fn;
-}
-
-} // namespace detail
-
-#endif // #if defined(BOOST_GCC)
-
 } // namespace boost
 
 #if defined(BOOST_DISABLE_CURRENT_LOCATION)
@@ -165,7 +151,7 @@ BOOST_CONSTEXPR inline char const* srcloc_strip_top_level( char const* fn )
 #elif defined(BOOST_GCC)
 
 // __PRETTY_FUNCTION__ is allowed outside functions under GCC
-# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, ::boost::detail::srcloc_strip_top_level(__PRETTY_FUNCTION__))
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, __PRETTY_FUNCTION__)
 
 #else
 
