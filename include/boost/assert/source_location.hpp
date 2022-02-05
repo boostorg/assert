@@ -148,9 +148,9 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 // The built-ins are available in 4.8+, but are not constant expressions until 7
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION())
 
-#elif defined(BOOST_GCC)
+#elif defined(BOOST_GCC) && BOOST_GCC >= 50000
 
-// __PRETTY_FUNCTION__ is allowed outside functions under GCC
+// __PRETTY_FUNCTION__ is allowed outside functions under GCC, but 4.x suffers from codegen bugs
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, __LINE__, __PRETTY_FUNCTION__)
 
 #else
