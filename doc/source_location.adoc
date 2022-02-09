@@ -50,9 +50,6 @@ f() called from: example.cpp:11:5 in function 'main'
 f() called from: example.cpp:11 in function 'main'
 ```
 ```none
-f() called from: example.cpp:11 in function 'main'
-```
-```none
 f() called from: example.cpp:4
 ```
 
