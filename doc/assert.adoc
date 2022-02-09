@@ -32,7 +32,7 @@ code.
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
 is included, `BOOST_ASSERT(expr)` expands to
 +
-```
+```none
 (BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed(#expr,
     BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
@@ -75,7 +75,7 @@ the macro `NDEBUG` is defined.
 * If the macro `BOOST_ENABLE_ASSERT_HANDLER` is defined when `<boost/assert.hpp>`
 is included, `BOOST_ASSERT_MSG(expr,msg)` expands to
 +
-```
+```none
 (BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed_msg(#expr,
     msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 ```
