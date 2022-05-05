@@ -115,6 +115,15 @@ public:
 # pragma warning( pop )
 #endif
 
+    inline friend bool operator==( source_location const& s1, source_location const& s2 ) BOOST_NOEXCEPT
+    {
+        return std::strcmp( s1.file_, s2.file_ ) == 0 && std::strcmp( s1.function_, s2.function_ ) == 0 && s1.line_ == s2.line_ && s1.column_ == s2.column_;
+    }
+
+    inline friend bool operator!=( source_location const& s1, source_location const& s2 ) BOOST_NOEXCEPT
+    {
+        return !( s1 == s2 );
+    }
 };
 
 template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ostream<E, T> & os, source_location const & loc )
