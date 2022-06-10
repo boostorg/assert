@@ -87,15 +87,16 @@ public:
         std::string r = file_name();
 
         char buffer[ 16 ];
+        size_t const bsize = sizeof(buffer)/sizeof(buffer[0]);
 
-        std::sprintf( buffer, ":%lu", ln );
+        std::snprintf( buffer, bsize, ":%lu", ln );
         r += buffer;
 
         unsigned long co = column();
 
         if( co )
         {
-            std::sprintf( buffer, ":%lu", co );
+            std::snprintf( buffer, bsize, ":%lu", co );
             r += buffer;
         }
 
