@@ -26,6 +26,22 @@ environment:
       TOOLSET: msvc-14.2
       CXXSTD: 14,17
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ADDPATH: C:\cygwin\bin;
+      TOOLSET: gcc
+      CXXSTD: 03,11,14,1z
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ADDPATH: C:\cygwin64\bin;
+      TOOLSET: gcc
+      CXXSTD: 03,11,14,1z
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ADDPATH: C:\mingw\bin;
+      TOOLSET: gcc
+      CXXSTD: 03,11,14,1z
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ADDPATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin;
+      TOOLSET: gcc
+      CXXSTD: 03,11,14,1z
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       CMAKE: 1
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CMAKE: 1
@@ -58,9 +74,10 @@ build: off
 
 test_script:
 
+  - PATH=%ADDPATH%%PATH%
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
   - if not "%ADDRMD%" == "" set ADDRMD=address-model=%ADDRMD%
-  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD% %ADDRMD%
+  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD% %ADDRMD% variant=debug,release
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
   - if not "%CMAKE%" == ""  cmake -DBUILD_TESTING=ON -DBOOST_INCLUDE_LIBRARIES=assert ..
