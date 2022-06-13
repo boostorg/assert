@@ -75,6 +75,12 @@ public:
 # pragma warning( disable: 4996 )
 #endif
 
+#if ( defined(_MSC_VER) && _MSC_VER < 1900 ) || ( defined(__MINGW32__) && !defined(__MINGW64_VERSION_MAJOR) )
+# define BOOST_ASSERT_SNPRINTF(buffer, format, arg) std::sprintf(buffer, format, arg)
+#else
+# define BOOST_ASSERT_SNPRINTF(buffer, format, arg) std::snprintf(buffer, sizeof(buffer)/sizeof(buffer[0]), format, arg)
+#endif
+
     std::string to_string() const
     {
         unsigned long ln = line();
@@ -88,14 +94,14 @@ public:
 
         char buffer[ 16 ];
 
-        std::sprintf( buffer, ":%lu", ln );
+        BOOST_ASSERT_SNPRINTF( buffer, ":%lu", ln );
         r += buffer;
 
         unsigned long co = column();
 
         if( co )
         {
-            std::sprintf( buffer, ":%lu", co );
+            BOOST_ASSERT_SNPRINTF( buffer, ":%lu", co );
             r += buffer;
         }
 
@@ -110,6 +116,8 @@ public:
 
         return r;
     }
+
+#undef BOOST_ASSERT_SNPRINTF
 
 #if defined(BOOST_MSVC)
 # pragma warning( pop )
