@@ -152,6 +152,15 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 // the correct result under 19.31, so prefer the built-ins
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION(), __builtin_COLUMN())
 
+#elif defined(BOOST_MSVC)
+
+// __LINE__ is not a constant expression under /ZI (edit and continue) for 1925 and before
+
+# define BOOST_CURRENT_LOCATION_IMPL_1(x) BOOST_CURRENT_LOCATION_IMPL_2(x)
+# define BOOST_CURRENT_LOCATION_IMPL_2(x) (x##0 / 10)
+
+# define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, BOOST_CURRENT_LOCATION_IMPL_1(__LINE__), "")
+
 #elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location(::std::source_location::current())
