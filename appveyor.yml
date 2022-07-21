@@ -22,6 +22,10 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: msvc-14.1,clang-win
       CXXSTD: 14,17
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      TOOLSET: msvc-14.1
+      CXXSTD: 14,17
+      CXXFLAGS: /ZI /FS
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       TOOLSET: msvc-14.2
       CXXSTD: 14,17
@@ -77,7 +81,8 @@ test_script:
   - PATH=%ADDPATH%%PATH%
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
   - if not "%ADDRMD%" == "" set ADDRMD=address-model=%ADDRMD%
-  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD% %ADDRMD% variant=debug,release
+  - if not "%CXXFLAGS%" == "" set CXXFLAGS=cxxflags="%CXXFLAGS%"
+  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD% %ADDRMD% %CXXFLAGS% variant=debug,release
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
   - if not "%CMAKE%" == ""  cmake -DBUILD_TESTING=ON -DBOOST_INCLUDE_LIBRARIES=assert ..
