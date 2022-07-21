@@ -21,14 +21,17 @@ environment:
       TOOLSET: msvc-12.0,msvc-14.0
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: msvc-14.1,clang-win
-      CXXSTD: 14,17
+      CXXSTD: 14,17,latest
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      TOOLSET: msvc-14.0
+      __CXXFLAGS__: /ZI /FS
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       TOOLSET: msvc-14.1
-      CXXSTD: 14,17
-      CXXFLAGS: /ZI /FS
+      CXXSTD: 14,17,latest
+      __CXXFLAGS__: /ZI /FS
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       TOOLSET: msvc-14.2
-      CXXSTD: 14,17
+      CXXSTD: 14,17,20,latest
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       ADDPATH: C:\cygwin\bin;
       TOOLSET: gcc
@@ -81,8 +84,8 @@ test_script:
   - PATH=%ADDPATH%%PATH%
   - if not "%CXXSTD%" == "" set CXXSTD=cxxstd=%CXXSTD%
   - if not "%ADDRMD%" == "" set ADDRMD=address-model=%ADDRMD%
-  - if not "%CXXFLAGS%" == "" set CXXFLAGS=cxxflags="%CXXFLAGS%"
-  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j 3 libs/assert/test toolset=%TOOLSET% %CXXSTD% %ADDRMD% %CXXFLAGS% variant=debug,release
+  - if not "%__CXXFLAGS__%" == "" set __CXXFLAGS__=cxxflags="%__CXXFLAGS__%"
+  - if "%CMAKE%%CMAKE_SUBDIR%%CMAKE_INSTALL%" == ""  b2 -j 1 libs/assert/test toolset=%TOOLSET% %CXXSTD% %ADDRMD% %__CXXFLAGS__% variant=debug,release
 
   - if not "%CMAKE%" == ""  mkdir __build__ && cd __build__
   - if not "%CMAKE%" == ""  cmake -DBUILD_TESTING=ON -DBOOST_INCLUDE_LIBRARIES=assert ..
