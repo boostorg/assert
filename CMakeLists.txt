@@ -16,6 +16,14 @@ target_link_libraries(boost_assert
   INTERFACE
     Boost::config
 )
+if (CMAKE_MAJOR_VERSION GREATER_EQUAL 3 AND CMAKE_MINOR_VERSION GREATER_EQUAL 19)
+    file(GLOB_RECURSE boost_assert_IDEFILES CONFIGURE_DEPENDS include/*.hpp)
+    source_group(TREE ${PROJECT_SOURCE_DIR}/include FILES ${boost_assert_IDEFILES})
+    if (CMAKE_GENERATOR MATCHES "Visual Studio")
+        list(APPEND boost_assert_IDEFILES extra/boost_assert.natvis)
+    endif()
+    target_sources(boost_assert PRIVATE ${boost_assert_IDEFILES})
+endif()
 
 # BUILD_TESTING is the standard CTest variable that enables testing
 
