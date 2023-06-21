@@ -161,7 +161,10 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location(__FILE__, BOOST_CURRENT_LOCATION_IMPL_1(__LINE__), "")
 
-#elif defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
+#elif !defined(__NVCC__) && defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
+
+// it seems that nvcc in cuda 12.1.105 + gcc 11.3.0 with -std:c++20 also has the std::source_location::current()
+// issue described above for msvc, so let's not use this macro if building under nvcc
 
 # define BOOST_CURRENT_LOCATION ::boost::source_location(::std::source_location::current())
 
