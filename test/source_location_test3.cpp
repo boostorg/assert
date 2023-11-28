@@ -5,6 +5,21 @@
 #include <boost/assert/source_location.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <sstream>
+#include <cstring>
+
+static char const* adjust_filename( char const* file )
+{
+#if defined(__INTEL_LLVM_COMPILER) && __INTEL_LLVM_COMPILER >= 20210300
+
+    char const* fn = std::strrchr( file, '/' );
+    return fn? fn + 1: file;
+
+#else
+
+    return file;
+
+#endif
+}
 
 int main()
 {
@@ -61,7 +76,7 @@ int main()
     {
         boost::source_location loc = BOOST_CURRENT_LOCATION;
 
-        std::string prefix = std::string( __FILE__ ) + ":62";
+        std::string prefix = std::string( adjust_filename(__FILE__) ) + ":77";
         BOOST_TEST_EQ( loc.to_string().substr( 0, prefix.size() ), prefix );
 
         std::ostringstream os;
