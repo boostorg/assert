@@ -7,7 +7,7 @@ import project ;
 
 project /boost/assert
     : common-requirements
-        <source>/boost/config//boost_config
+        <library>/boost/config//boost_config
         <include>include
     ;
 
