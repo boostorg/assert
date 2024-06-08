@@ -270,6 +270,7 @@ jobs:
           python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           cmd /c bootstrap
           choco install vcredist140
+          b2 -x
           b2 -v
           b2 -d0 headers
 
