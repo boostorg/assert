@@ -268,9 +268,8 @@ jobs:
           xcopy /s /e /q %GITHUB_WORKSPACE% libs\%LIBRARY%\
           git submodule update --init tools/boostdep
           python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
+          git -C tools/build checkout feature/gha-test
           cmd /c bootstrap
-          choco install vcredist140
-          b2 -x
           b2 -v
           b2 -d0 headers
 
