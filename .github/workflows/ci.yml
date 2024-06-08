@@ -269,8 +269,9 @@ jobs:
           git submodule update --init tools/boostdep
           python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           cmd /c bootstrap
+          choco install vcredist140
           b2 -v
-          b2 -d+11 --debug-configuration headers
+          b2 -d0 headers
 
       - name: Run tests
         shell: cmd
