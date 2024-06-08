@@ -269,7 +269,8 @@ jobs:
           git submodule update --init tools/boostdep
           python tools/boostdep/depinst/depinst.py --git_args "--jobs 3" %LIBRARY%
           cmd /c bootstrap
-          b2 --debug-configuration headers
+          b2 -v
+          b2 -d+11 --debug-configuration headers
 
       - name: Run tests
         shell: cmd
