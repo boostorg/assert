@@ -9,7 +9,7 @@
 import testing ;
 
 project : requirements
-  <source>/boost/core//boost_core
+  <library>/boost/core//boost_core
 
   <warnings>extra
   <toolset>msvc:<warnings-as-errors>on
