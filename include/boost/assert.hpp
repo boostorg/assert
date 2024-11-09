@@ -39,19 +39,19 @@
 # define BOOST_ASSERT_MSG(expr, msg) ((void)0)
 # define BOOST_ASSERT_IS_VOID
 
-#elif defined(BOOST_ENABLE_ASSERT_HANDLER) || defined(BOOST_ENABLE_ASSERT_HANDLER_NORETURN) || ( defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER) && !defined(NDEBUG) ) || ( defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER_NORETURN) && !defined(NDEBUG) )
+#elif defined(BOOST_ENABLE_ASSERT_HANDLER) || ( defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER) && !defined(NDEBUG) )
 
 #include <boost/config.hpp> // for BOOST_LIKELY
 #include <boost/current_function.hpp>
 
 namespace boost
 {
-#if defined(BOOST_ENABLE_ASSERT_HANDLER_NORETURN) || defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER_NORETURN)
-    [[noreturn]]
+#if defined(BOOST_ASSERT_HANDLER_IS_NORETURN)
+    BOOST_NORETURN
 #endif
     void assertion_failed(char const * expr, char const * function, char const * file, long line); // user defined
-#if defined(BOOST_ENABLE_ASSERT_HANDLER_NORETURN) || defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER_NORETURN)
-    [[noreturn]]
+#if defined(BOOST_ASSERT_HANDLER_IS_NORETURN)
+    BOOST_NORETURN
 #endif
     void assertion_failed_msg(char const * expr, char const * msg, char const * function, char const * file, long line); // user defined
 } // namespace boost
