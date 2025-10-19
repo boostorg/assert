@@ -25,14 +25,14 @@ if(CMAKE_VERSION VERSION_GREATER 3.18)
 
   file(GLOB_RECURSE headers CONFIGURE_DEPENDS include/*.hpp)
   target_sources(boost_assert PRIVATE ${headers})
-  source_group(TREE ${PROJECT_SOURCE_DIR}/include FILES ${headers} PREFIX "include")
+  source_group(TREE "${PROJECT_SOURCE_DIR}/include" FILES ${headers} PREFIX "include")
   unset(headers)
 
   if(MSVC)
 
     # Only Visual Studio needs this, but the generator may also be Ninja
     target_sources(boost_assert PUBLIC extra/boost_assert.natvis)
-    source_group(TREE ${PROJECT_SOURCE_DIR}/extra FILES extra/boost_assert.natvis PREFIX "extra")
+    source_group(TREE "${PROJECT_SOURCE_DIR}/extra" FILES extra/boost_assert.natvis PREFIX "extra")
 
   endif()
 
