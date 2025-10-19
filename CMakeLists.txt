@@ -2,8 +2,8 @@
 # Distributed under the Boost Software License, Version 1.0.
 # https://www.boost.org/LICENSE_1_0.txt
 
-# We support CMake 3.5, but prefer 3.20 policies and behavior
-cmake_minimum_required(VERSION 3.5...3.20)
+# We support CMake 3.5, but prefer 3.31 policies and behavior
+cmake_minimum_required(VERSION 3.5...3.31)
 
 project(boost_assert VERSION "${BOOST_SUPERPROJECT_VERSION}" LANGUAGES CXX)
 
