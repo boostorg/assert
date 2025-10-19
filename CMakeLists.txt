@@ -19,7 +19,7 @@ target_link_libraries(boost_assert
 
 # Add headers and .natvis to project, for better IDE integration
 
-if(CMAKE_VERSION VERSION_GREATER 3.18 AND CMAKE_GENERATOR MATCHES "Visual Studio")
+if(CMAKE_VERSION VERSION_GREATER 3.18)
 
   # Using target_sources with PRIVATE or PUBLIC on INTERFACE targets requires 3.19
 
@@ -28,7 +28,12 @@ if(CMAKE_VERSION VERSION_GREATER 3.18 AND CMAKE_GENERATOR MATCHES "Visual Studio
   target_sources(boost_assert PRIVATE ${boost_assert_HEADERS})
   unset(boost_assert_HEADERS)
 
-  target_sources(boost_assert PUBLIC extra/boost_assert.natvis)
+  if(MSVC)
+
+    # Only Visual Studio needs this, but the generator may also be Ninja
+    target_sources(boost_assert PUBLIC extra/boost_assert.natvis)
+
+  endif()
 
 endif()
 
