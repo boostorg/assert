@@ -19,7 +19,7 @@ target_link_libraries(boost_assert
 
 # Add headers and .natvis to project, for better IDE integration
 
-if(CMAKE_VERSION VERSION_GREATER 3.18)
+if(NOT CMAKE_VERSION VERSION_LESS 3.19)
 
   # Using target_sources with PRIVATE or PUBLIC on INTERFACE targets requires 3.19
 
