@@ -25,16 +25,20 @@ if(CMAKE_VERSION VERSION_GREATER 3.18)
 
   file(GLOB_RECURSE headers CONFIGURE_DEPENDS include/*.hpp)
   target_sources(boost_assert PRIVATE ${headers})
-  source_group(TREE ${PROJECT_SOURCE_DIR} FILES ${headers})
   unset(headers)
 
   if(MSVC)
 
     # Only Visual Studio needs this, but the generator may also be Ninja
     target_sources(boost_assert PUBLIC extra/boost_assert.natvis)
-    source_group(TREE ${PROJECT_SOURCE_DIR} FILES extra/boost_assert.natvis)
 
   endif()
+
+  # Make IDE project folders match directory structure
+
+  get_target_property(sources boost_assert SOURCES)
+  source_group(TREE ${PROJECT_SOURCE_DIR} FILES ${sources})
+  unset(sources)
 
 endif()
 
