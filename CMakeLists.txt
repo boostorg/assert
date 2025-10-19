@@ -23,9 +23,10 @@ if(CMAKE_VERSION VERSION_GREATER 3.18 AND CMAKE_GENERATOR MATCHES "Visual Studio
 
   # Using target_sources with PRIVATE or PUBLIC on INTERFACE targets requires 3.19
 
-  file(GLOB_RECURSE boost_assert_IDEFILES CONFIGURE_DEPENDS include/*.hpp)
-  source_group(TREE ${PROJECT_SOURCE_DIR}/include FILES ${boost_assert_IDEFILES} PREFIX "Header Files")
-  target_sources(boost_assert PRIVATE ${boost_assert_IDEFILES})
+  file(GLOB_RECURSE boost_assert_HEADERS CONFIGURE_DEPENDS include/*.hpp)
+  source_group(TREE ${PROJECT_SOURCE_DIR}/include FILES ${boost_assert_HEADERS} PREFIX "Header Files")
+  target_sources(boost_assert PRIVATE ${boost_assert_HEADERS})
+  unset(boost_assert_HEADERS)
 
   target_sources(boost_assert PUBLIC extra/boost_assert.natvis)
 
