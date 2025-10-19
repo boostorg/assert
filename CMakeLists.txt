@@ -23,10 +23,10 @@ if(CMAKE_VERSION VERSION_GREATER 3.18)
 
   # Using target_sources with PRIVATE or PUBLIC on INTERFACE targets requires 3.19
 
-  file(GLOB_RECURSE boost_assert_HEADERS CONFIGURE_DEPENDS include/*.hpp)
-  target_sources(boost_assert PRIVATE ${boost_assert_HEADERS})
-  source_group(TREE ${PROJECT_SOURCE_DIR}/include FILES ${boost_assert_HEADERS} PREFIX "include")
-  unset(boost_assert_HEADERS)
+  file(GLOB_RECURSE headers CONFIGURE_DEPENDS include/*.hpp)
+  target_sources(boost_assert PRIVATE ${headers})
+  source_group(TREE ${PROJECT_SOURCE_DIR}/include FILES ${headers} PREFIX "include")
+  unset(headers)
 
   if(MSVC)
 
