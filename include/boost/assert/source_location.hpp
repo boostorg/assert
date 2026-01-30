@@ -10,10 +10,13 @@
 #ifndef BOOST_USE_MODULES
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
-#include <iosfwd>
 #include <string>
 #include <cstdio>
 #include <cstring>
+
+#if !defined(BOOST_NO_IOSTREAM)
+#include <iosfwd>
+#endif
 
 #if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
 # include <source_location>
@@ -142,12 +145,16 @@ public:
     }
 };
 
+#if !defined(BOOST_NO_IOSTREAM)
+
 BOOST_ASSERT_MODULE_EXPORT
 template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ostream<E, T> & os, source_location const & loc )
 {
     os << loc.to_string();
     return os;
 }
+
+#endif
 
 } // namespace boost
 
