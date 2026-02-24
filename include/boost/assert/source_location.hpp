@@ -7,24 +7,31 @@
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_ASSERT_INTERFACE_UNIT)
+
+#ifndef BOOST_ASSERT_SKIP_IMPORT
+import boost.assert;
+#endif
+
+#else
+
 #ifndef BOOST_USE_MODULES
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
-#include <string>
-#include <cstdio>
-#include <cstring>
+#endif
+#include <boost/config/std/string.hpp>
+#include <boost/config/std/cstdio.hpp>
+#include <boost/config/std/cstring.hpp>
 
 #if !defined(BOOST_NO_IOSTREAM)
-#include <iosfwd>
+#include <boost/config/std/iosfwd.hpp>
 #endif
 
 #if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
-# include <source_location>
-#endif
+# include <boost/config/std/source_location.hpp>
 #endif
 
 // BOOST_ASSERT_MODULE_EXPORT
-
 #ifdef BOOST_USE_MODULES
 #  define BOOST_ASSERT_MODULE_EXPORT export
 #else
@@ -158,6 +165,11 @@ template<class E, class T> std::basic_ostream<E, T> & operator<<( std::basic_ost
 
 } // namespace boost
 
+#endif // Modules compatibility header
+
+// Not safe to include in the interface unit because of includes, and not needed
+#if !defined(BOOST_ASSERT_INTERFACE_UNIT)
 #include <boost/assert/current_location.hpp>
+#endif
 
 #endif // #ifndef BOOST_ASSERT_SOURCE_LOCATION_HPP_INCLUDED
