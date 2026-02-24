@@ -8,7 +8,7 @@
 
 #include <boost/assert/source_location.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <exception>
+#include <boost/config/std/exception.hpp>
 
 template<class T> class result
 {
