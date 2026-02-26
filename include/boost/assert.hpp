@@ -29,6 +29,14 @@
 // BOOST_ASSERT, BOOST_ASSERT_MSG, BOOST_ASSERT_IS_VOID
 //
 
+// Make the header safe to include from libraries supporting modules
+#if defined(BOOST_IN_MODULE_PURVIEW) && !defined(BOOST_ASSERT)
+#  error "Please #include <boost/assert.hpp> in your module global fragment"
+#endif
+
+// Don't include the file again in module purviews
+#ifndef BOOST_IN_MODULE_PURVIEW
+
 #undef BOOST_ASSERT
 #undef BOOST_ASSERT_MSG
 #undef BOOST_ASSERT_IS_VOID
@@ -87,5 +95,7 @@ namespace boost
 
 # define BOOST_VERIFY(expr) BOOST_ASSERT(expr)
 # define BOOST_VERIFY_MSG(expr, msg) BOOST_ASSERT_MSG(expr,msg)
+
+#endif // BOOST_IN_MODULE_PURVIEW
 
 #endif
