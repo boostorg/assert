@@ -12,6 +12,7 @@ def main():
     submodules = [
         ('tools/cmake',         'https://github.com/anarthal/boost-cmake'),
         ('libs/core',           'https://github.com/anarthal/core'),
+        ('libs/throw_exception','https://github.com/anarthal/throw_exception'),
         ('libs/config',         'https://github.com/anarthal/config'),
     ]
 
