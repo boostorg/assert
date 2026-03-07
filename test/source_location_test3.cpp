@@ -4,8 +4,8 @@
 
 #include <boost/assert/source_location.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <sstream>
-#include <cstring>
+#include <boost/config/std/sstream.hpp>
+#include <boost/config/std/cstring.hpp>
 
 static char const* adjust_filename( char const* file )
 {

@@ -17,6 +17,10 @@ target_link_libraries(boost_assert
     Boost::config
 )
 
+if (BOOST_USE_MODULES)
+  target_compile_definitions(boost_assert INTERFACE BOOST_USE_MODULES)
+endif()
+
 # Add headers and .natvis to project, for better IDE integration
 
 if(NOT CMAKE_VERSION VERSION_LESS 3.19)
