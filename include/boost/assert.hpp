@@ -85,7 +85,7 @@ namespace boost
 #undef BOOST_VERIFY
 #undef BOOST_VERIFY_MSG
 
-#if defined(BOOST_DISABLE_ASSERTS) || ( !defined(BOOST_ENABLE_ASSERT_HANDLER) && defined(NDEBUG) )
+#if defined(BOOST_ASSERT_IS_VOID)
 
 # define BOOST_VERIFY(expr) ((void)(expr))
 # define BOOST_VERIFY_MSG(expr, msg) ((void)(expr))
