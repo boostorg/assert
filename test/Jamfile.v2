@@ -47,3 +47,4 @@ run source_location_test5.cpp ;
 run source_location_test6.cpp ;
 
 run assert_test3.cpp ;
+run assert_test4.cpp ;
