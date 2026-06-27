@@ -22,11 +22,23 @@ void test_both()
     BOOST_ASSERT_MSG( 1, "1" );
     BOOST_TEST_EQ( msg_handler_invoked, 0 );
 
+#if defined(NDEBUG)
+
+    BOOST_ASSERT( 0 );
+    BOOST_TEST_EQ( handler_invoked, 0 );
+
+    BOOST_ASSERT_MSG( 0, "0" );
+    BOOST_TEST_EQ( msg_handler_invoked, 0 );
+
+#else
+
     BOOST_ASSERT( 0 );
     BOOST_TEST_EQ( handler_invoked, 1 );
 
     BOOST_ASSERT_MSG( 0, "0" );
     BOOST_TEST_EQ( msg_handler_invoked, 1 );
+
+#endif
 }
 
 int main()
