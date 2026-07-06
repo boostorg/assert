@@ -19,7 +19,7 @@
 
 #include <boost/current_function.hpp>
 #include <boost/config.hpp>
-#include <cstdio>
+#include <boost/config/std/cstdio.hpp>
 
 void message(char const * file, long line, char const * func, char const * msg)
 {

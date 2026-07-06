@@ -10,7 +10,7 @@
 
 #include <boost/current_function.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <string>
+#include <boost/config/std/string.hpp>
 
 int f()
 {

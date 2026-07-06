@@ -11,7 +11,7 @@
 #include <boost/config.hpp>
 #include <boost/current_function.hpp>
 #include <boost/detail/lightweight_test.hpp>
-#include <string>
+#include <boost/config/std/string.hpp>
 
 // default case, !NDEBUG
 // BOOST_VERIFY(x) -> BOOST_ASSERT(x)
