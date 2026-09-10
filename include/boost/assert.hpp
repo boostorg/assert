@@ -29,6 +29,8 @@
 // Declarations of boost::assertion_failed, boost::assertion_failed_msg
 //
 
+#include <boost/config.hpp> // for BOOST_NORETURN
+
 namespace boost
 {
 
@@ -60,7 +62,6 @@ namespace boost
 
 #elif defined(BOOST_ENABLE_ASSERT_HANDLER) || ( defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER) && !defined(NDEBUG) )
 
-#include <boost/config.hpp> // for BOOST_LIKELY
 #include <boost/current_function.hpp>
 
 #define BOOST_ASSERT(expr) (BOOST_LIKELY(!!(expr))? ((void)0): ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
