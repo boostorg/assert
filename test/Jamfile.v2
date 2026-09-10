@@ -50,3 +50,5 @@ run assert_test3.cpp ;
 run assert_test4.cpp ;
 run assert_is_void_test2.cpp ;
 run verify_test2.cpp ;
+
+run assert_issue_48_test.cpp ;
