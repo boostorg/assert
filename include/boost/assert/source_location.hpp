@@ -1,3 +1,8 @@
+// Make the header safe to include from libraries supporting modules
+#if defined(BOOST_IN_MODULE_PURVIEW) && !defined(BOOST_ASSERT_SOURCE_LOCATION_HPP_INCLUDED)
+#  error "Please #include <boost/assert/source_location.hpp> in your module global fragment"
+#endif
+
 #ifndef BOOST_ASSERT_SOURCE_LOCATION_HPP_INCLUDED
 #define BOOST_ASSERT_SOURCE_LOCATION_HPP_INCLUDED
 
@@ -9,16 +14,16 @@
 
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
-#include <string>
-#include <cstdio>
-#include <cstring>
+#include <boost/config/std/string.hpp>
+#include <boost/config/std/cstdio.hpp>
+#include <boost/config/std/cstring.hpp>
 
 #if !defined(BOOST_NO_IOSTREAM)
-#include <iosfwd>
+#include <boost/config/std/iosfwd.hpp>
 #endif
 
 #if defined(__cpp_lib_source_location) && __cpp_lib_source_location >= 201907L
-# include <source_location>
+# include <boost/config/std/source_location.hpp>
 #endif
 
 namespace boost
