@@ -23,7 +23,7 @@ if(NOT CMAKE_VERSION VERSION_LESS 3.19)
 
   # Using target_sources with PRIVATE or PUBLIC on INTERFACE targets requires 3.19
 
-  file(GLOB_RECURSE headers CONFIGURE_DEPENDS include/*.hpp)
+  file(GLOB_RECURSE headers ${BOOST_CONFIGURE_DEPENDS} include/*.hpp)
   target_sources(boost_assert PRIVATE ${headers})
   unset(headers)
 
