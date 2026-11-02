@@ -1,3 +1,8 @@
+// Make the header safe to include from libraries supporting modules
+#if defined(BOOST_IN_MODULE_PURVIEW) && !defined(BOOST_CURRENT_FUNCTION_HPP_INCLUDED)
+#  error "Please #include <boost/current_function.hpp> in your module global fragment"
+#endif
+
 #ifndef BOOST_CURRENT_FUNCTION_HPP_INCLUDED
 #define BOOST_CURRENT_FUNCTION_HPP_INCLUDED
 

@@ -11,7 +11,7 @@
 #include <boost/config.hpp>
 #include <boost/current_function.hpp>
 #include <boost/detail/lightweight_test.hpp>
-#include <string>
+#include <boost/config/std/string.hpp>
 
 // Each backslash in __FILE__ when passed through BOOST_STRINGIZE is doubled
 static std::string quote( std::string const & s )

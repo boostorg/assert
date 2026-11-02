@@ -72,7 +72,7 @@ void test_disabled()
 #define BOOST_ENABLE_ASSERT_HANDLER
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
-#include <cstdio>
+#include <boost/config/std/cstdio.hpp>
 
 int handler_invoked = 0;
 int msg_handler_invoked = 0;

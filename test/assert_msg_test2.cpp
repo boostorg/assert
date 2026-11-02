@@ -9,7 +9,7 @@
 //
 
 #include <boost/detail/lightweight_test.hpp>
-#include <stdio.h>
+#include <boost/config/std/cstdio.hpp>
 
 // default case, !NDEBUG
 // BOOST_ASSERT_MSG(x) -> assert(x)
